@@ -25,13 +25,16 @@ namespace SänkaSkepp
 
         }
 
-        public string GetString(string question)
-        {
+        //public string GetString(string question)
+        //{
 
-        }
+        //}
 
         public char GetChar(string question)
         {
+            Console.Write(question);
+            char c = char.Parse(Console.ReadLine());
+            return c;
 
         }
     }
