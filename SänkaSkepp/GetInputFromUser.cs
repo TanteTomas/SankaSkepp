@@ -10,7 +10,18 @@ namespace SänkaSkepp
     {
         public int GetInt(string question)
         {
-
+            while (true)
+            {
+                Console.Write(question);
+                string input = Console.ReadLine();
+                if (input.Length != 0)
+                {
+                    if (int.TryParse(input, out int output))
+                    {
+                        return output;
+                    }
+                }
+            }
 
         }
 
