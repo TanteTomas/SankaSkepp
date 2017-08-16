@@ -25,10 +25,32 @@ namespace SänkaSkepp
 
         }
 
-        //public string GetString(string question)
-        //{
+        public string GetString(string question, int minChars , int maxChars)
+        {
+            return GetStringMethod(question, minChars, maxChars);
+        }
 
-        //}
+        public string GetString(string question)
+        {
+            return GetStringMethod(question, 0, 1000000000);
+        }
+
+        public string GetStringMethod(string question , int minChars , int maxChars)
+        {
+            while (true)
+            {
+                Console.Write(question);
+                string input = Console.ReadLine();
+                if ((input.Length>=minChars) && (input.Length <= maxChars))
+                {
+                    return input;
+                }
+                else
+                {
+                    Console.WriteLine($"Your text has to have at least {minChars} characters and at most {maxChars} characters. Current length is {input.Length} characters");
+                }
+            }
+        }
 
         public char GetChar(string question)
         {
