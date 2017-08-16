@@ -67,6 +67,18 @@ namespace SänkaSkepp
 
         private static void SetGridSize()
         {
+            GetGridSize();
+            SetGrid();
+            throw new NotImplementedException();
+        }
+
+        private static void SetGrid()
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void GetGridSize()
+        {
             throw new NotImplementedException();
         }
 
