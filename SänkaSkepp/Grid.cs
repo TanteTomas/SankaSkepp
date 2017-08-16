@@ -11,7 +11,15 @@ namespace SänkaSkepp
         
         public List<Square> squares;
 
+        private static void SetGrid()
+        {
+            throw new NotImplementedException();
+        }
 
+        private static void GetGridSize()
+        {
+            throw new NotImplementedException();
+        }
 
 
 

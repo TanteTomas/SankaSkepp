@@ -67,20 +67,11 @@ namespace SänkaSkepp
 
         private static void SetGridSize()
         {
-            GetGridSize();
-            SetGrid();
+            Grid grid = new Grid();
             throw new NotImplementedException();
         }
 
-        private static void SetGrid()
-        {
-            throw new NotImplementedException();
-        }
-
-        private static void GetGridSize()
-        {
-            throw new NotImplementedException();
-        }
+        
 
         private static void PlaceShips()
         {
