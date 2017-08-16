@@ -10,6 +10,7 @@ namespace SänkaSkepp
     {
         static void Main(string[] args)
         {
+            
             StartGame();
             PlayGame();
             EndGame();
