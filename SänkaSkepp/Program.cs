@@ -81,6 +81,7 @@ namespace SänkaSkepp
 
         private static void AskPlayerName()
         {
+            // skapa en instans av klassen Player
             throw new NotImplementedException();
         }
     }
