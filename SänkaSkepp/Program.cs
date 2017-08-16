@@ -10,7 +10,7 @@ namespace SänkaSkepp
     {
         static void Main(string[] args)
         {
-            startGame();
+            StartGame();
             PlayGame();
             EndGame();
 
@@ -55,15 +55,23 @@ namespace SänkaSkepp
             throw new NotImplementedException();
         }
 
-        private static void startGame()
+        private static void StartGame()
         {
             throw new NotImplementedException();
             AskPlayerName();
+            SetGridSize();
+
             PlaceShips();
+        }
+
+        private static void SetGridSize()
+        {
+            throw new NotImplementedException();
         }
 
         private static void PlaceShips()
         {
+            PrintField();
             throw new NotImplementedException();
         }
 
