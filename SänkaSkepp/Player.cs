@@ -25,7 +25,19 @@ namespace SänkaSkepp
             
         }
 
-        public void DropBomb(int coordX, int coordY)
+
+    private static Grid SetGridSize()
+    {
+        // skapa en instans av klassen grid
+        Grid grid = new Grid(4, 4); // <-- färdig att använda
+
+        return grid;
+    }
+
+
+
+
+    public void DropBomb(Grid grid)
         {
             Console.Write("Enter coords where to fire: ");
             string input = Console.ReadLine();

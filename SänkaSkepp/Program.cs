@@ -30,14 +30,16 @@ namespace SänkaSkepp
 
         private static void PlayGame(Players players)
         {
-            PrintField(grid);
 
             while (true) //while(not all hit)
             {
+                PrintField(players.player1.grid);
                 Console.WriteLine(players.player1.Name+"'s turn.");
-                players.player1.DropBomb(grid); // Ask for coords
+                players.player1.DropBomb(players.player1.grid);
+
+                PrintField(players.player2.grid);
                 Console.WriteLine(players.player2.Name + "'s turn.");
-                players.player2.DropBomb(grid); // Ask for coords
+                players.player2.DropBomb(players.player2.grid);
             }
         }
 
