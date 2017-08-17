@@ -14,10 +14,9 @@ namespace SänkaSkepp
 
         public static int NumberOfPlayers = 0;
 
-        public Player()
+        public Player(string name)
         {
-            Console.WriteLine("Enter Player Name: ");
-            Name = Console.ReadLine();
+            Name = name;
             Score = 0;
             IsTurn = (NumberOfPlayers == 0);
             NumberOfPlayers++;
