@@ -10,6 +10,14 @@ namespace SänkaSkepp
     {
         
         public List<Square> squares = new List<Square>();
+        public int rows;
+        public int columns;
+
+        public Grid(int _rows , int _columns)
+        {
+            rows = _rows;
+            columns = _columns;
+        }
 
         private void SetGrid()
         {
