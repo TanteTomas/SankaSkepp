@@ -110,7 +110,7 @@ namespace SänkaSkepp
                             Console.WriteLine("This grid doesn't exist!");
                             continue;
                         }
-                        if (PlaceThisShip(grid, player))
+                        if (PlaceThisShip(grid, player , position , shipLength))
                         {
                             break;
                         }
@@ -121,6 +121,57 @@ namespace SänkaSkepp
                     }
                 }
                 shipLength++;
+            }
+        }
+
+        private static bool PlaceThisShip(Grid grid, Player player , string position , int length)
+        {
+            List<string> shipCoords = GetShipCoords(position, length);
+            foreach (string coord in shipCoords)
+            {
+                if (grid.squares[coord].isShip)
+                {
+                    return false;
+                }
+            }
+            foreach (string coord in shipCoords)
+            {
+                grid.squares[coord].isShip = true;
+            }
+            return true;
+        }
+
+        private static List<string> GetShipCoords(string position , int length)
+        {
+            List<string> shipCoords = new List<string>();
+            char orientation = GetInputFromUser.GetChar("Orientation (h/d/v): ");
+            char row = position[0];
+            int column = Convert.ToInt32(position[1]);
+
+            for (int i = 0; i < length; i++)
+            {
+                shipCoords.Add(row + Convert.ToString(column));
+                NextPartOfTheShip(orientation, ref row, ref column);
+            }
+            return shipCoords;
+        }
+
+        private static void NextPartOfTheShip(char orientation, ref char row, ref int column)
+        {
+            switch (orientation)
+            {
+                case 'h':
+                    column++;
+                    break;
+                case 'v':
+                    row++;
+                    break;
+                case 'd':
+                    row++;
+                    column++;
+                    break;
+                default:
+                    break;
             }
         }
 
