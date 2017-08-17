@@ -14,7 +14,7 @@ namespace SänkaSkepp
             Players players = new Players();
             StartGame(players);
             PlayGame(players);
-            EndGame();
+            
 
 
 
@@ -22,31 +22,25 @@ namespace SänkaSkepp
 
         }
 
-        private static void EndGame()
+        public static void EndGame(string winner)
         {
-            throw new NotImplementedException();
+            Console.WriteLine(" * * * Winner: "+winner.ToUpper()+" * * *");
+            Console.ReadLine();
         }
 
         private static void PlayGame(Players players)
         {
 
-            while (true)
+            while (true) //while(not all hit)
             {
-                if (players.player1.IsTurn)
-                {
-                    PlayARound(players.player1);
-                }
-                else
-                {
-                    PlayARound(players.player2);
-                }
+                PrintField(players.player1.grid);
+                Console.WriteLine(players.player1.Name+"'s turn.");
+                players.player1.DropBomb(players.player1.grid);
+
+                PrintField(players.player2.grid);
+                Console.WriteLine(players.player2.Name + "'s turn.");
+                players.player2.DropBomb(players.player2.grid);
             }
-            
-
-            //while(not all hit)
-            players.player1.DropBomb(1,1); // Ask for coords
-            players.player2.DropBomb(2,2); // Ask for coords
-
         }
 
         private static void PlayARound(Player player)
@@ -56,17 +50,25 @@ namespace SänkaSkepp
             PrintField(player.grid);
         }
 
-        public static void CheckAllHit()
+        public static bool CheckAllHit(Grid grid)
         {
-            // Check if all ships are hit
+            bool allHit = true;
+            foreach (Square square in grid.squares.Values)
+                if (square.isShip && !square.isHit)
+                    allHit = false;
+            return allHit;
             // => continue with other player, or end game
         }
 
-        public static void CheckHit(int x, int y)
+        public static void CheckHit(Square square)
         {
-            // go to grid x-y field
-            // and check if there is a ship
-            // if there is a ship, set x-y field to hit
+            if (square.isShip)
+            {
+                square.isHit = true;
+                Console.WriteLine("You hit a ship!");
+            }
+            else
+                Console.WriteLine("You missed...");
         }
 
         private static void PrintField(Grid grid)

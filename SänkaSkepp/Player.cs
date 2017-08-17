@@ -25,21 +25,28 @@ namespace SänkaSkepp
             
         }
 
-        private static Grid SetGridSize()
+
+    private static Grid SetGridSize()
+    {
+        // skapa en instans av klassen grid
+        Grid grid = new Grid(4, 4); // <-- färdig att använda
+
+        return grid;
+    }
+
+
+
+
+    public void DropBomb(Grid grid)
         {
-            // skapa en instans av klassen grid
-            Grid grid = new Grid(4, 4); // <-- färdig att använda
-
-            return grid;
-
-        }
-
-
-        public void DropBomb(int coordX, int coordY)
-        {
-            Program.CheckHit(1,1);
-            Program.CheckAllHit();
-            // IsTurn=>false
+            Console.Write("Enter coords where to fire: ");
+            string input = Console.ReadLine();
+            Square bombDrop = new Square("Z0"); // behövs bara som Fallback
+            foreach (var sq in grid.squares)
+                if (sq.Key == input)
+                    bombDrop = sq.Value;
+            Program.CheckHit(bombDrop);
+            if (Program.CheckAllHit(grid)) Program.EndGame(this.Name);
         }
 
     }
