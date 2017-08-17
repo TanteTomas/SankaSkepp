@@ -74,6 +74,7 @@ namespace SänkaSkepp
         {
             // skapa en instans av klassen grid
             Grid grid = new Grid(4 , 4); // <-- färdig att använda
+            
             return grid;
             
         }
@@ -146,7 +147,7 @@ namespace SänkaSkepp
             List<string> shipCoords = new List<string>();
             char orientation = GetInputFromUser.GetChar("Orientation (h/d/v): ");
             char row = position[0];
-            int column = Convert.ToInt32(position[1]);
+            int column = Convert.ToInt32(Convert.ToString(position[1]));
 
             for (int i = 0; i < length; i++)
             {

@@ -17,6 +17,7 @@ namespace SänkaSkepp
         {
             rows = _rows;
             columns = _columns;
+            SetGrid();
         }
 
         private void SetGrid()
