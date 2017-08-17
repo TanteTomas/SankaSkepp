@@ -91,6 +91,12 @@ namespace SänkaSkepp
 
         private static void LetUserPlaceShips(List<int> shipSizes, Grid grid, Player player)
         {
+<<<<<<< HEAD
+            //foreach (int numberOfShipsOfThisSize in collection)
+            //{
+
+            //}
+=======
             Console.WriteLine("Chose what grid the upper left corner of the ship should be in (on the form A1)");
             int shipLength = 2;
             foreach (int numberOfShipsOfThisSize in shipSizes)
@@ -168,6 +174,7 @@ namespace SänkaSkepp
                 default:
                     break;
             }
+>>>>>>> a51e85e0ef8236195d79ad6079cba647f8e73691
         }
 
         private static List<int> PickShipSizes()

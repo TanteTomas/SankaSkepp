@@ -14,7 +14,7 @@ namespace SänkaSkepp
             Grid grid = SetGridSize();
             Players players = new Players();
             StartGame(grid,players);
-            PlayGame(grid, players);
+            PlayGame(grid);
             EndGame();
 
 
@@ -28,23 +28,28 @@ namespace SänkaSkepp
             throw new NotImplementedException();
         }
 
-        private static void PlayGame(Grid grid, Players players)
+        private static void PlayGame(Grid grid)
         {
             PrintField(grid);
-
-            //while(not all hit)
-            players.player1.DropBomb(1,1); // Ask for coords
-            players.player2.DropBomb(2,2); // Ask for coords
+            DropBomb();
+            throw new NotImplementedException();
 
         }
 
+        private static void DropBomb()
+        {
+            CheckHit();
+            CheckAllHit();
+            throw new NotImplementedException();
 
-        public static void CheckAllHit()
+        }
+
+        private static void CheckAllHit()
         {
             throw new NotImplementedException();
         }
 
-        public static void CheckHit(int x, int y)
+        private static void CheckHit()
         {
             throw new NotImplementedException();
         }

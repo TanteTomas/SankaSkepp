@@ -89,85 +89,12 @@ namespace SänkaSkepp
             LetUserPlaceShips(shipSizes, grid, players.player2);
         }
 
-        private static void LetUserPlaceShips(List<int> shipSizes, Grid grid, Player player)
+        private static void LetUserPlaceShips(List<int> shipSizes, Grid grid, Player player1)
         {
-            Console.WriteLine("Chose what grid the upper left corner of the ship should be in (on the form A1)");
-            int shipLength = 2;
-            foreach (int numberOfShipsOfThisSize in shipSizes)
-            {
-                for (int i = 0; i < numberOfShipsOfThisSize; i++)
-                {
-                    while (true)
-                    {
-                        string position = GetInputFromUser.GetString("Position: ");
-                        if (!grid.squares.ContainsKey(position))
-                        {
-                            Console.WriteLine("This grid doesn't exist!");
-                            continue;
-                        }
-                        if (PlaceThisShip(grid, player , position , shipLength))
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            Console.WriteLine("The ship cannot be here!");
-                        }
-                    }
-                }
-                shipLength++;
-            }
-        }
+            //foreach (int numberOfShipsOfThisSize in collection)
+            //{
 
-        private static bool PlaceThisShip(Grid grid, Player player , string position , int length)
-        {
-            List<string> shipCoords = GetShipCoords(position, length);
-            foreach (string coord in shipCoords)
-            {
-                if (grid.squares[coord].isShip)
-                {
-                    return false;
-                }
-            }
-            foreach (string coord in shipCoords)
-            {
-                grid.squares[coord].isShip = true;
-            }
-            return true;
-        }
-
-        private static List<string> GetShipCoords(string position , int length)
-        {
-            List<string> shipCoords = new List<string>();
-            char orientation = GetInputFromUser.GetChar("Orientation (h/d/v): ");
-            char row = position[0];
-            int column = Convert.ToInt32(position[1]);
-
-            for (int i = 0; i < length; i++)
-            {
-                shipCoords.Add(row + Convert.ToString(column));
-                NextPartOfTheShip(orientation, ref row, ref column);
-            }
-            return shipCoords;
-        }
-
-        private static void NextPartOfTheShip(char orientation, ref char row, ref int column)
-        {
-            switch (orientation)
-            {
-                case 'h':
-                    column++;
-                    break;
-                case 'v':
-                    row++;
-                    break;
-                case 'd':
-                    row++;
-                    column++;
-                    break;
-                default:
-                    break;
-            }
+            //}
         }
 
         private static List<int> PickShipSizes()
