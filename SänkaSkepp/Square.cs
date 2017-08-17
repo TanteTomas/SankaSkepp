@@ -19,6 +19,7 @@ namespace SänkaSkepp
             coords = _coords;
             isHit = false;
             isShip = false;
+            isSunk = false;
         }
 
         public Square(string _coords, bool _isHit, bool _isShip)

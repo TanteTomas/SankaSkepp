@@ -47,7 +47,7 @@ namespace SänkaSkepp
             {
                 for (int j = 0; j < columns; j++)
                 {
-                    coords.Add($"{letter}{j}");
+                    coords.Add($"{letter}{j+1}");
                 }
                 letter++;
             }

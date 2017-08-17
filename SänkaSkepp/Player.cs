@@ -21,7 +21,7 @@ namespace SänkaSkepp
             Score = 0;
             IsTurn = (NumberOfPlayers == 0);
             NumberOfPlayers++;
-            Grid grid = SetGridSize();
+            grid = SetGridSize();
             
         }
 

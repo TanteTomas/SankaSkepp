@@ -33,11 +33,11 @@ namespace SänkaSkepp
 
             while (true) //while(not all hit)
             {
-                PrintField(players.player1.grid);
+                PrintField(players.player1.grid , false);
                 Console.WriteLine(players.player1.Name+"'s turn.");
                 players.player1.DropBomb(players.player1.grid);
 
-                PrintField(players.player2.grid);
+                PrintField(players.player2.grid , false);
                 Console.WriteLine(players.player2.Name + "'s turn.");
                 players.player2.DropBomb(players.player2.grid);
             }
@@ -47,7 +47,7 @@ namespace SänkaSkepp
         {
             Console.WriteLine($"{player.Name} is up. Press enter to begin");
             Console.ReadLine();
-            PrintField(player.grid);
+            PrintField(player.grid , false);
         }
 
         public static bool CheckAllHit(Grid grid)
@@ -71,45 +71,126 @@ namespace SänkaSkepp
                 Console.WriteLine("You missed...");
         }
 
-        private static void PrintField(Grid grid)
+        private static void PrintField(Grid grid, bool displayShips)
         {
+
+            List<string> writeToScreen = new List<string>();
+            string[] bgcolor = new string[grid.rows];
             char row = 'A';
+            int rowToIndex = row - 65;
             int column = 1;
             foreach (var square in grid.squares)
             {
                 while (square.Key[0] != row)
+                {
                     row++;
-                while (square.Key[1] != column)
+                    rowToIndex = row - 65;
+                    column = 1;
+                }
+                while (Convert.ToInt32(Convert.ToString(square.Key[1])) != column)
                     column++;
-                WriteASquare(square.Value);
+
+                WriteASquare(ref bgcolor , square.Value, displayShips, writeToScreen, rowToIndex);
+            }
+
+            PrintAll(writeToScreen , bgcolor);
+        }
+
+        
+
+        private static void PrintAll(List<string> writeToScreen , string[] bgcolor)
+        {
+            int colorCounter;
+            int row = 0;
+
+            foreach (string line in writeToScreen)
+            {
+                colorCounter = 0;
+                foreach (char character in line)
+                {
+                    SetBGColor(bgcolor[row][colorCounter/5]);
+                    Console.Write(character);
+                    colorCounter++;
+                }
+                Console.Write(Environment.NewLine);
+                
+            }
+            Console.ResetColor();
+        }
+
+        private static void SetBGColor(char character)
+        {
+            switch (character)
+            {
+                case 'g':
+                    Console.BackgroundColor = ConsoleColor.Green;
+                    break;
+                case 'b':
+                    Console.BackgroundColor = ConsoleColor.Blue;
+                    break;
+                case 'k':
+                    Console.BackgroundColor = ConsoleColor.Black;
+                    break;
+                case 'y':
+                    Console.BackgroundColor = ConsoleColor.Yellow;
+                    break;
+                case 'r':
+                    Console.BackgroundColor = ConsoleColor.Red;
+                    break;
+                default:
+                    break;
             }
         }
 
-        private static void WriteASquare(Square square)
+        private static void WriteASquare(ref string[] bgcolor , Square square , bool displayShips , List<string> writeToScreen , int row)
         {
+            
+            int[] rows = new int[5] {row*5 , row*5+1 , row*5+2 , row*5+3 , row*5+4};
+            while (writeToScreen.Count < (row+1) * 5)
+            {
+                writeToScreen.Add("");
+            }
+            string middlePart;
             if (square.isHit)
             {
                 if (square.isShip)
                 {
                     if (square.isSunk)
                     {
-
+                        bgcolor[row] += "w";
+                        middlePart = "xxx";
                     }
                     else
                     {
-
+                        bgcolor[row] += "r";
+                        middlePart = "xxx";
                     }
                 }
                 else
                 {
-
+                    bgcolor[row] += "y";
+                    middlePart = "ooo";
                 }
             }
+            else if (square.isShip)
+            {
+                bgcolor[row] += "g";
+                middlePart = "+++";
+            }
+            {
+                bgcolor[row] += "b";
+                middlePart = "   ";
+            }
+            writeToScreen[rows[0]] += "+---+";
+            writeToScreen[rows[1]] += $"|{middlePart}|";
+            //writeToScreen[rows[2]] += $"|{middlePart}|";
+            //writeToScreen[rows[3]] += $"|{middlePart}|";
+            writeToScreen[rows[2]] += "+---+";
+            
         }
 
         private static void StartGame(Players players)
         {
-
             PlaceShips(players);
         }
 
@@ -129,15 +210,20 @@ namespace SänkaSkepp
 
         private static void LetUserPlaceShips(List<int> shipSizes, Player player)
         {
+            Console.WriteLine($"{player.Name} get ready to place ships. Hit enter when ready!");
+            Console.ReadLine();
+            
             Console.WriteLine("Chose what grid the upper left corner of the ship should be in (on the form A1)");
             int shipLength = 2;
             foreach (int numberOfShipsOfThisSize in shipSizes)
             {
+                
                 for (int i = 0; i < numberOfShipsOfThisSize; i++)
                 {
+                    PrintField(player.grid, true);
                     while (true)
                     {
-                        string position = GetInputFromUser.GetString("Position: ");
+                        string position = GetInputFromUser.GetString($"Position of boat of length {shipLength}: ");
                         if (!player.grid.squares.ContainsKey(position))
                         {
                             Console.WriteLine("This grid doesn't exist!");
