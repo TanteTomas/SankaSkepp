@@ -41,15 +41,12 @@ namespace SänkaSkepp
 
         public static void CheckAllHit()
         {
-            // Check if all ships are hit
-            // => continue with other player, or end game
+            throw new NotImplementedException();
         }
 
         public static void CheckHit(int x, int y)
         {
-            // go to grid x-y field
-            // and check if there is a ship
-            // if there is a ship, set x-y field to hit
+            throw new NotImplementedException();
         }
 
         private static void PrintField(Grid grid)
@@ -72,7 +69,6 @@ namespace SänkaSkepp
         {
             // skapa en instans av klassen grid
             Grid grid = new Grid(4 , 4); // <-- färdig att använda
-            
             return grid;
             
         }
@@ -95,6 +91,12 @@ namespace SänkaSkepp
 
         private static void LetUserPlaceShips(List<int> shipSizes, Grid grid, Player player)
         {
+<<<<<<< HEAD
+            //foreach (int numberOfShipsOfThisSize in collection)
+            //{
+
+            //}
+=======
             Console.WriteLine("Chose what grid the upper left corner of the ship should be in (on the form A1)");
             int shipLength = 2;
             foreach (int numberOfShipsOfThisSize in shipSizes)
@@ -145,7 +147,7 @@ namespace SänkaSkepp
             List<string> shipCoords = new List<string>();
             char orientation = GetInputFromUser.GetChar("Orientation (h/d/v): ");
             char row = position[0];
-            int column = Convert.ToInt32(Convert.ToString(position[1]));
+            int column = Convert.ToInt32(position[1]);
 
             for (int i = 0; i < length; i++)
             {
@@ -172,6 +174,7 @@ namespace SänkaSkepp
                 default:
                     break;
             }
+>>>>>>> a51e85e0ef8236195d79ad6079cba647f8e73691
         }
 
         private static List<int> PickShipSizes()

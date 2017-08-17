@@ -22,9 +22,11 @@ namespace SänkaSkepp
             NumberOfPlayers++;
         }
 
-        void DropBomb(int coordX, int coordY)
+        public void DropBomb(int coordX, int coordY)
         {
-            
+            Program.CheckHit(1,1);
+            Program.CheckAllHit();
+            // IsTurn=>false
         }
 
     }
