@@ -28,17 +28,18 @@ namespace SänkaSkepp
 
         private static void PlayGame()
         {
-            throw new NotImplementedException();
             PrintField();
             DropBomb();
+            throw new NotImplementedException();
 
         }
 
         private static void DropBomb()
         {
-            throw new NotImplementedException();
             CheckHit();
             CheckAllHit();
+            throw new NotImplementedException();
+
         }
 
         private static void CheckAllHit()
@@ -58,11 +59,12 @@ namespace SänkaSkepp
 
         private static void StartGame()
         {
-            throw new NotImplementedException();
             AskPlayerName();
             SetGridSize();
 
             PlaceShips();
+            throw new NotImplementedException();
+
         }
 
         private static void SetGridSize()

@@ -17,8 +17,10 @@ namespace SänkaSkepp
 
             foreach (string coord in coords)
             {
+                /* Användbara i framtiden
                 int row = (int)coord[0] - 65; //Character A becomes int 0
                 int column = Convert.ToInt32(coord[1]);
+                */
 
                 squares.Add(new Square(coord));
             }
