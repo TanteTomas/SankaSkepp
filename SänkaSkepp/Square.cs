@@ -12,5 +12,18 @@ namespace SänkaSkepp
         public bool isShip;
         public string coords;
 
+        public Square(string _coords)
+        {
+            coords = _coords;
+            isHit = false;
+            isShip = false;
+        }
+
+        public Square(string _coords, bool _isHit, bool _isShip)
+        {
+            coords = _coords;
+            isHit = _isHit;
+            isShip = _isShip;
+        }
     }
 }
