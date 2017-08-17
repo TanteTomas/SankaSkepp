@@ -8,11 +8,10 @@ namespace SänkaSkepp
 {
     class Program
     {
-        Grid grid;
         void Main(string[] args)
         {
             
-            StartGame();
+            Grid grid = StartGame();
             PlayGame();
             EndGame();
 
@@ -27,9 +26,9 @@ namespace SänkaSkepp
             throw new NotImplementedException();
         }
 
-        private static void PlayGame()
+        private void PlayGame()
         {
-            PrintField();
+            PrintField(grid);
             DropBomb();
             throw new NotImplementedException();
 
@@ -53,26 +52,29 @@ namespace SänkaSkepp
             throw new NotImplementedException();
         }
 
-        private static void PrintField()
+        private static void PrintField(Grid grid)
         {
             
+            foreach (var square in grid.squares)
+            {
+
+            }
             throw new NotImplementedException();
         }
 
-        private void StartGame()
+        private Grid StartGame()
         {
             AskPlayerName();
-            SetGridSize();
+            Grid grid = SetGridSize();
 
             PlaceShips();
-            throw new NotImplementedException();
-
+            return grid;
         }
 
-        private void SetGridSize()
+        private Grid SetGridSize()
         {
             // skapa en instans av klassen grid
-            grid = new Grid(); // <-- färdig att använda
+            Grid grid = new Grid(4 , 4); // <-- färdig att använda
 
             
             throw new NotImplementedException();
@@ -80,9 +82,9 @@ namespace SänkaSkepp
 
         
 
-        private static void PlaceShips()
+        private void PlaceShips()
         {
-            PrintField();
+            PrintField(grid);
             throw new NotImplementedException();
         }
 
