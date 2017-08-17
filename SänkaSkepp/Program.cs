@@ -10,9 +10,10 @@ namespace SänkaSkepp
     {
         void Main(string[] args)
         {
-            
-            Grid grid = StartGame();
-            PlayGame();
+
+            Grid grid = SetGridSize();
+            StartGame(grid);
+            PlayGame(grid);
             EndGame();
 
 
@@ -26,7 +27,7 @@ namespace SänkaSkepp
             throw new NotImplementedException();
         }
 
-        private void PlayGame()
+        private void PlayGame(Grid grid)
         {
             PrintField(grid);
             DropBomb();
@@ -62,13 +63,12 @@ namespace SänkaSkepp
             throw new NotImplementedException();
         }
 
-        private Grid StartGame()
+        private void StartGame(Grid grid)
         {
             AskPlayerName();
-            Grid grid = SetGridSize();
+            
 
-            PlaceShips();
-            return grid;
+            PlaceShips(grid);
         }
 
         private Grid SetGridSize()
@@ -82,7 +82,7 @@ namespace SänkaSkepp
 
         
 
-        private void PlaceShips()
+        private void PlaceShips(Grid grid)
         {
             PrintField(grid);
             throw new NotImplementedException();
