@@ -65,8 +65,6 @@ namespace SänkaSkepp
 
         private void StartGame(Grid grid)
         {
-            AskPlayerName();
-            
 
             PlaceShips(grid);
         }
@@ -87,11 +85,6 @@ namespace SänkaSkepp
             PrintField(grid);
             throw new NotImplementedException();
         }
-
-        private static string AskPlayerName()
-        {
-            Console.WriteLine("Enter Player Name: ");
-            return Console.ReadLine();
-        }
+        
     }
 }
