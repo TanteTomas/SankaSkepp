@@ -9,14 +9,19 @@ namespace SänkaSkepp
     class Grid
     {
         
-        public List<Square> squares;
+        public List<Square> squares = new List<Square>();
 
-        private static void SetGrid()
+        private void SetGrid()
         {
             List<string> coords = SetupGridCoords();
 
+            foreach (string coord in coords)
+            {
+                int row = (int)coord[0] - 65; //Character A becomes int 0
+                int column = Convert.ToInt32(coord[1]);
 
-            throw new NotImplementedException();
+                squares.Add(new Square(coord));
+            }
         }
 
        
