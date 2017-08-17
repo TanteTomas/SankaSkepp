@@ -12,8 +12,8 @@ namespace SänkaSkepp
         {
 
             Grid grid = SetGridSize();
-
-            StartGame(grid,player1,player2);
+            Players players = new Players();
+            StartGame(grid,players);
             PlayGame(grid);
             EndGame();
 

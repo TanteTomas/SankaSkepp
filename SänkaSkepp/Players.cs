@@ -8,7 +8,12 @@ namespace SänkaSkepp
 {
     class Players
     {
-        public Player player1 = new Player();
-        public Player player2 = new Player();
+        public static Player AddPlayer()
+        {
+            Console.WriteLine("Enter Player Name: ");
+            return new Player(Console.ReadLine());
+        }
+        public Player player1 = AddPlayer();
+        public Player player2 = AddPlayer();
     }
 }
