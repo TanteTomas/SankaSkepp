@@ -11,10 +11,10 @@ namespace SänkaSkepp
         static void Main(string[] args)
         {
 
-            Grid grid = SetGridSize();
             Players players = new Players();
-            StartGame(grid,players);
-            PlayGame(grid, players);
+            StartGame(players);
+            PlayGame(players);
+            
 
 
 
@@ -28,7 +28,7 @@ namespace SänkaSkepp
             Console.ReadLine();
         }
 
-        private static void PlayGame(Grid grid, Players players)
+        private static void PlayGame(Players players)
         {
             PrintField(grid);
 
@@ -41,6 +41,12 @@ namespace SänkaSkepp
             }
         }
 
+        private static void PlayARound(Player player)
+        {
+            Console.WriteLine($"{player.Name} is up. Press enter to begin");
+            Console.ReadLine();
+            PrintField(player.grid);
+        }
 
         public static bool CheckAllHit(Grid grid)
         {
@@ -73,35 +79,27 @@ namespace SänkaSkepp
             throw new NotImplementedException();
         }
 
-        private static void StartGame(Grid grid , Players players)
+        private static void StartGame(Players players)
         {
 
-            PlaceShips(grid , players);
-        }
-
-        private static Grid SetGridSize()
-        {
-            // skapa en instans av klassen grid
-            Grid grid = new Grid(4 , 4); // <-- färdig att använda
-            
-            return grid;
-            
+            PlaceShips(players);
         }
 
         
+        
 
-        private static void PlaceShips(Grid grid , Players players)
+        private static void PlaceShips(Players players)
         {
             //PrintField(grid);
             List<int> shipSizes = PickShipSizes();
 
-            LetsPlaceShips(shipSizes , grid , players);
+            LetsPlaceShips(shipSizes , players);
         }
 
-        private static void LetsPlaceShips(List<int> shipSizes , Grid grid , Players players)
+        private static void LetsPlaceShips(List<int> shipSizes , Players players)
         {
-            LetUserPlaceShips(shipSizes , grid , players.player1);
-            LetUserPlaceShips(shipSizes, grid, players.player2);
+            LetUserPlaceShips(shipSizes , players.player1.grid , players.player1);
+            LetUserPlaceShips(shipSizes, players.player2.grid, players.player2);
         }
 
         private static void LetUserPlaceShips(List<int> shipSizes, Grid grid, Player player)
