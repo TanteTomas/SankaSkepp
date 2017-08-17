@@ -94,11 +94,33 @@ namespace SänkaSkepp
             LetUserPlaceShips(shipSizes, grid, players.player2);
         }
 
-        private static void LetUserPlaceShips(List<int> shipSizes, Grid grid, Player player1)
+        private static void LetUserPlaceShips(List<int> shipSizes, Grid grid, Player player)
         {
-            foreach (int numberOfShipsOfThisSize in collection)
+            Console.WriteLine("Chose what grid the upper left corner of the ship should be in (on the form A1)");
+            int shipLength = 2;
+            foreach (int numberOfShipsOfThisSize in shipSizes)
             {
-
+                for (int i = 0; i < numberOfShipsOfThisSize; i++)
+                {
+                    while (true)
+                    {
+                        string position = GetInputFromUser.GetString("Position: ");
+                        if (!grid.squares.ContainsKey(position))
+                        {
+                            Console.WriteLine("This grid doesn't exist!");
+                            continue;
+                        }
+                        if (PlaceThisShip(grid, player))
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("The ship cannot be here!");
+                        }
+                    }
+                }
+                shipLength++;
             }
         }
 
