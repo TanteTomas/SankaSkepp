@@ -13,16 +13,14 @@ namespace SänkaSkepp
 
         private static void SetGrid()
         {
-            List<string> coords = WriteGrid();
+            List<string> coords = SetupGridCoords();
+
+
             throw new NotImplementedException();
         }
 
-        private static void GetGridSize()
-        {
-            throw new NotImplementedException();
-        }
-
-        private static List<string> WriteGrid() //returns coordinates of new grid
+       
+        private static List<string> SetupGridCoords() //returns coordinates of new grid
         {
             //Starting with rectangular grid
             int rows = 4;
