@@ -8,7 +8,7 @@ namespace SänkaSkepp
 {
     class Program
     {
-        void Main(string[] args)
+        static void Main(string[] args)
         {
 
             Grid grid = SetGridSize();
@@ -27,7 +27,7 @@ namespace SänkaSkepp
             throw new NotImplementedException();
         }
 
-        private void PlayGame(Grid grid)
+        private static void PlayGame(Grid grid)
         {
             PrintField(grid);
             DropBomb();
@@ -63,7 +63,7 @@ namespace SänkaSkepp
             throw new NotImplementedException();
         }
 
-        private void StartGame(Grid grid)
+        private static void StartGame(Grid grid)
         {
             AskPlayerName();
             
@@ -71,26 +71,61 @@ namespace SänkaSkepp
             PlaceShips(grid);
         }
 
-        private Grid SetGridSize()
+        private static Grid SetGridSize()
         {
             // skapa en instans av klassen grid
             Grid grid = new Grid(4 , 4); // <-- färdig att använda
-
+            return grid;
             
-            throw new NotImplementedException();
         }
 
         
 
-        private void PlaceShips(Grid grid)
+        private static void PlaceShips(Grid grid)
         {
-            PrintField(grid);
-            throw new NotImplementedException();
+            //PrintField(grid);
+            List<int> shipSizes = PickShipSizes();
+
+            LetUserPlaceShips(shipSizes , grid);
+        }
+
+        private static void LetUserPlaceShips(List<int> shipSizes , Grid grid)
+        {
+
+        }
+
+        private static List<int> PickShipSizes()
+        {
+            List<int> shipSizes = new List<int>();
+            Console.WriteLine("You will now pick the number and size of ships. Chose the number of ships of a given type, 0 for none. When you are satisfied, leave the number slot empty");
+            for (int i = 2; i < 6; i++)
+            {
+                while (true)
+                {
+                    Console.Write($"Length {i}: ");
+                    string input = Console.ReadLine();
+                    
+                    if (int.TryParse(input , out int outputInt))
+                    {
+                        shipSizes.Add(outputInt);
+                        break;
+                    }
+                    else
+                    {
+                        if (input == "")
+                        {
+                            return shipSizes;
+                        }
+                    }
+                    Console.WriteLine("Bad input!");
+
+                }
+            }
+            return null;
         }
 
         private static void AskPlayerName()
         {
-            throw new NotImplementedException();
         }
     }
 }
