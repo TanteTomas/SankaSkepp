@@ -41,12 +41,15 @@ namespace SänkaSkepp
 
         public static void CheckAllHit()
         {
-            throw new NotImplementedException();
+            // Check if all ships are hit
+            // => continue with other player, or end game
         }
 
         public static void CheckHit(int x, int y)
         {
-            throw new NotImplementedException();
+            // go to grid x-y field
+            // and check if there is a ship
+            // if there is a ship, set x-y field to hit
         }
 
         private static void PrintField(Grid grid)
