@@ -8,7 +8,8 @@ namespace SänkaSkepp
 {
     class Program
     {
-        static void Main(string[] args)
+        Grid grid;
+        void Main(string[] args)
         {
             
             StartGame();
@@ -54,10 +55,11 @@ namespace SänkaSkepp
 
         private static void PrintField()
         {
+            
             throw new NotImplementedException();
         }
 
-        private static void StartGame()
+        private void StartGame()
         {
             AskPlayerName();
             SetGridSize();
@@ -67,10 +69,10 @@ namespace SänkaSkepp
 
         }
 
-        private static void SetGridSize()
+        private void SetGridSize()
         {
             // skapa en instans av klassen grid
-            Grid grid = new Grid(); // <-- färdig att använda
+            grid = new Grid(); // <-- färdig att använda
 
             
             throw new NotImplementedException();
