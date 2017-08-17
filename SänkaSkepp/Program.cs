@@ -14,7 +14,7 @@ namespace SänkaSkepp
             Grid grid = SetGridSize();
             Players players = new Players();
             StartGame(grid,players);
-            PlayGame(grid);
+            PlayGame(grid, players);
             EndGame();
 
 
@@ -28,28 +28,23 @@ namespace SänkaSkepp
             throw new NotImplementedException();
         }
 
-        private static void PlayGame(Grid grid)
+        private static void PlayGame(Grid grid, Players players)
         {
             PrintField(grid);
-            DropBomb();
-            throw new NotImplementedException();
+
+            //while(not all hit)
+            players.player1.DropBomb(1,1); // Ask for coords
+            players.player2.DropBomb(2,2); // Ask for coords
 
         }
 
-        private static void DropBomb()
-        {
-            CheckHit();
-            CheckAllHit();
-            throw new NotImplementedException();
 
-        }
-
-        private static void CheckAllHit()
+        public static void CheckAllHit()
         {
             throw new NotImplementedException();
         }
 
-        private static void CheckHit()
+        public static void CheckHit(int x, int y)
         {
             throw new NotImplementedException();
         }
@@ -96,10 +91,10 @@ namespace SänkaSkepp
 
         private static void LetUserPlaceShips(List<int> shipSizes, Grid grid, Player player1)
         {
-            foreach (int numberOfShipsOfThisSize in collection)
-            {
+            //foreach (int numberOfShipsOfThisSize in collection)
+            //{
 
-            }
+            //}
         }
 
         private static List<int> PickShipSizes()
