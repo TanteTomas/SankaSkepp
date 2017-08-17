@@ -12,7 +12,8 @@ namespace SänkaSkepp
         {
 
             Grid grid = SetGridSize();
-            StartGame(grid);
+
+            StartGame(grid,player1,player2);
             PlayGame(grid);
             EndGame();
 
@@ -63,12 +64,12 @@ namespace SänkaSkepp
             throw new NotImplementedException();
         }
 
-        private static void StartGame(Grid grid)
+        private static void StartGame(Grid grid , Player player1 , Player player2)
         {
             AskPlayerName();
             
 
-            PlaceShips(grid);
+            PlaceShips(grid , player1 , player2);
         }
 
         private static Grid SetGridSize()
@@ -81,17 +82,23 @@ namespace SänkaSkepp
 
         
 
-        private static void PlaceShips(Grid grid)
+        private static void PlaceShips(Grid grid , Player player1 , Player player2)
         {
             //PrintField(grid);
             List<int> shipSizes = PickShipSizes();
 
-            LetUserPlaceShips(shipSizes , grid);
+            LetsPlaceShips(shipSizes , grid , player1 , player2);
         }
 
-        private static void LetUserPlaceShips(List<int> shipSizes , Grid grid)
+        private static void LetsPlaceShips(List<int> shipSizes , Grid grid , Player player1 , Player player2)
         {
+            LetUserPlaceShips(shipSizes , grid , player1);
+            LetUserPlaceShips(shipSizes, grid, player2);
+        }
 
+        private static void LetUserPlaceShips(List<int> shipSizes, Grid grid, Player player1)
+        {
+            
         }
 
         private static List<int> PickShipSizes()
