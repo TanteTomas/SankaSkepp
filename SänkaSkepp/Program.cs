@@ -88,9 +88,10 @@ namespace SänkaSkepp
             throw new NotImplementedException();
         }
 
-        private static void AskPlayerName()
+        private static string AskPlayerName()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Enter Player Name: ");
+            return Console.ReadLine();
         }
     }
 }

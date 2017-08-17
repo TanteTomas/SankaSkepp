@@ -8,5 +8,24 @@ namespace SänkaSkepp
 {
     class Player
     {
+        public string Name { get; private set; }
+        public int Score { get; set; }
+        public bool IsTurn { get; set; }
+
+        public static int NumberOfPlayers = 0;
+
+        public Player(string name)
+        {
+            Name = name;
+            Score = 0;
+            IsTurn = (NumberOfPlayers == 0);
+            NumberOfPlayers++;
+        }
+
+        void DropBomb(int coordX, int coordY)
+        {
+            
+        }
+
     }
 }
