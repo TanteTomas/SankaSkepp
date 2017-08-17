@@ -11,6 +11,7 @@ namespace SänkaSkepp
         public string Name { get; private set; }
         public int Score { get; set; }
         public bool IsTurn { get; set; }
+        public Grid grid;
 
         public static int NumberOfPlayers = 0;
 
@@ -20,7 +21,19 @@ namespace SänkaSkepp
             Score = 0;
             IsTurn = (NumberOfPlayers == 0);
             NumberOfPlayers++;
+            Grid grid = SetGridSize();
+            
         }
+
+        private static Grid SetGridSize()
+        {
+            // skapa en instans av klassen grid
+            Grid grid = new Grid(4, 4); // <-- färdig att använda
+
+            return grid;
+
+        }
+
 
         public void DropBomb(int coordX, int coordY)
         {
