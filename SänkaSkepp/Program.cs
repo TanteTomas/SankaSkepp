@@ -68,7 +68,9 @@ namespace SänkaSkepp
         private static void SetGridSize()
         {
             // skapa en instans av klassen grid
-            Grid grid = new Grid();
+            Grid grid = new Grid(); // <-- färdig att använda
+
+            
             throw new NotImplementedException();
         }
 
