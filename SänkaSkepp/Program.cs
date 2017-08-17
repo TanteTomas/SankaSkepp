@@ -71,12 +71,38 @@ namespace SänkaSkepp
 
         private static void PrintField(Grid grid)
         {
-            
+            char row = 'A';
+            int column = 1;
             foreach (var square in grid.squares)
             {
-
+                while (square.Key[0] != row)
+                    row++;
+                while (square.Key[1] != column)
+                    column++;
+                WriteASquare(square.Value);
             }
-            throw new NotImplementedException();
+        }
+
+        private static void WriteASquare(Square square)
+        {
+            if (square.isHit)
+            {
+                if (square.isShip)
+                {
+                    if (square.isSunk)
+                    {
+
+                    }
+                    else
+                    {
+
+                    }
+                }
+                else
+                {
+
+                }
+            }
         }
 
         private static void StartGame(Players players)
@@ -84,9 +110,6 @@ namespace SänkaSkepp
 
             PlaceShips(players);
         }
-
-        
-        
 
         private static void PlaceShips(Players players)
         {
@@ -98,11 +121,11 @@ namespace SänkaSkepp
 
         private static void LetsPlaceShips(List<int> shipSizes , Players players)
         {
-            LetUserPlaceShips(shipSizes , players.player1.grid , players.player1);
-            LetUserPlaceShips(shipSizes, players.player2.grid, players.player2);
+            LetUserPlaceShips(shipSizes , players.player1);
+            LetUserPlaceShips(shipSizes, players.player2);
         }
 
-        private static void LetUserPlaceShips(List<int> shipSizes, Grid grid, Player player)
+        private static void LetUserPlaceShips(List<int> shipSizes, Player player)
         {
             Console.WriteLine("Chose what grid the upper left corner of the ship should be in (on the form A1)");
             int shipLength = 2;
@@ -113,12 +136,12 @@ namespace SänkaSkepp
                     while (true)
                     {
                         string position = GetInputFromUser.GetString("Position: ");
-                        if (!grid.squares.ContainsKey(position))
+                        if (!player.grid.squares.ContainsKey(position))
                         {
                             Console.WriteLine("This grid doesn't exist!");
                             continue;
                         }
-                        if (PlaceThisShip(grid, player , position , shipLength))
+                        if (PlaceThisShip(player , position , shipLength))
                         {
                             break;
                         }
@@ -132,19 +155,23 @@ namespace SänkaSkepp
             }
         }
 
-        private static bool PlaceThisShip(Grid grid, Player player , string position , int length)
+        private static bool PlaceThisShip(Player player , string position , int length)
         {
+            // todo: add in Square instance to what ship a square belongs to
             List<string> shipCoords = GetShipCoords(position, length);
             foreach (string coord in shipCoords)
             {
-                if (grid.squares[coord].isShip)
+                if (player.grid.squares[coord].isShip)
                 {
                     return false;
                 }
             }
+
             foreach (string coord in shipCoords)
             {
-                grid.squares[coord].isShip = true;
+                player.grid.squares[coord].isShip = true;
+                player.grid.squares[coord].belongsToShip = shipCoords;
+
             }
             return true;
         }
