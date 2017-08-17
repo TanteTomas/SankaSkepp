@@ -8,8 +8,8 @@ namespace SänkaSkepp
 {
     class Grid
     {
-        
-        public List<Square> squares = new List<Square>();
+
+        public Dictionary<string, Square> squares = new Dictionary<string, Square>();
         public int rows;
         public int columns;
 
@@ -30,7 +30,7 @@ namespace SänkaSkepp
                 int column = Convert.ToInt32(coord[1]);
                 */
 
-                squares.Add(new Square(coord));
+                squares.Add(coord , new Square(coord));
             }
         }
 
