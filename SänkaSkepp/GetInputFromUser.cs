@@ -8,7 +8,7 @@ namespace SänkaSkepp
 {
     class GetInputFromUser
     {
-        public int GetInt(string question)
+        public static int GetInt(string question)
         {
             while (true)
             {
@@ -25,17 +25,17 @@ namespace SänkaSkepp
 
         }
 
-        public string GetString(string question, int minChars , int maxChars)
+        public static string GetString(string question, int minChars , int maxChars)
         {
             return GetStringMethod(question, minChars, maxChars);
         }
 
-        public string GetString(string question)
+        public static string GetString(string question)
         {
             return GetStringMethod(question, 0, 1000000000);
         }
 
-        public string GetStringMethod(string question , int minChars , int maxChars)
+        public static string GetStringMethod(string question , int minChars , int maxChars)
         {
             while (true)
             {
@@ -52,7 +52,7 @@ namespace SänkaSkepp
             }
         }
 
-        public char GetChar(string question)
+        public static char GetChar(string question)
         {
             Console.Write(question);
             char c = char.Parse(Console.ReadLine());
