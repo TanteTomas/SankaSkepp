@@ -33,6 +33,8 @@ namespace SänkaSkepp
         {
             OnlineGame onlineGame = new OnlineGame();
             onlineGame.SetUpOnlineGame();
+
+
             while (true) //while(not all hit)
             {
                 PrintField(players.player2.grid , false);
