@@ -57,6 +57,10 @@ namespace SänkaSkepp
                 {
                     Console.WriteLine("Hit!");
                     grid.squares[input].isHit = true;
+                    if (IsTheShipSunk(grid , grid.squares[input]))
+                    {
+                        SinkTheShip(grid, grid.squares[input]);
+                    }
                 }
                 else
                 {
@@ -75,5 +79,29 @@ namespace SänkaSkepp
             */
         }
 
+        private void SinkTheShip(Grid grid, Square thisSquare)
+        {
+            foreach (string coord in thisSquare.belongsToShip)
+            {
+                grid.squares[coord].isSunk = true;
+            }
+
+            // todo: play sinking sound!
+            
+        }
+
+        private bool IsTheShipSunk(Grid grid, Square thisSquare)
+        {
+            
+            foreach (string coord in thisSquare.belongsToShip)
+            {
+                if (!grid.squares[coord].isHit)
+                {
+                    return false;
+                }
+            }
+            return true;
+            
+        }
     }
 }
