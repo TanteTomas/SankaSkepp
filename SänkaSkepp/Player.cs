@@ -58,6 +58,10 @@ namespace SänkaSkepp
                     Console.WriteLine("Hit!");
                     grid.squares[input].isHit = true;
                 }
+                else
+                {
+                    Console.WriteLine("Miss!");
+                }
                 break;
             }
             /*
