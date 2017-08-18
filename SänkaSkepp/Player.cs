@@ -37,7 +37,7 @@ namespace SänkaSkepp
 
 
 
-    public void DropBomb(Grid grid)
+    public void DropBomb(Grid grid , OnlineGame onlineGame , bool willEnterManually)
         {
             while (true)
             {

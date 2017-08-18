@@ -45,6 +45,7 @@
     <Compile Include="Bomb.cs" />
     <Compile Include="GetInputFromUser.cs" />
     <Compile Include="Grid.cs" />
+    <Compile Include="OnlineGame.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Players.cs" />
     <Compile Include="Program.cs" />
