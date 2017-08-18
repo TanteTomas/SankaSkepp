@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,9 @@ namespace SänkaSkepp
         public int Score { get; set; }
         public bool IsTurn { get; set; }
         public Grid grid;
+        private string onlineFilePath;
+        private bool hasReadFromFile = false;
+        private string nextShot;
 
         public static int NumberOfPlayers = 0;
 
@@ -39,10 +43,25 @@ namespace SänkaSkepp
 
     public void DropBomb(Grid grid , OnlineGame onlineGame , bool willEnterManually)
         {
+            string input;
+            bool enterManually = (willEnterManually && onlineGame.PlayOnline);
             while (true)
             {
-                Console.Write("Enter coords where to fire: ");
-                string input = Console.ReadLine();
+                if (enterManually)
+                {
+                    Console.Write("Enter coords where to fire: ");
+                    input = Console.ReadLine();
+                    if (onlineGame.PlayOnline)
+                    {
+                        WriteToFile(input);
+                    }
+                }
+                else
+                {
+                    onlineFilePath = onlineGame.OnlineFilePath;
+                    GetCoordinateFromFile();
+                    input = nextShot;
+                }
                 if (!grid.squares.ContainsKey(input))
                 {
                     Console.WriteLine("This grid does not exist!");
@@ -77,6 +96,33 @@ namespace SänkaSkepp
             Program.CheckHit(bombDrop);
             if (Program.CheckAllHit(grid)) Program.EndGame(this.Name);
             */
+        }
+
+        private void WriteToFile(string input)
+        {
+            File.WriteAllText(onlineFilePath, input);
+        }
+
+        private void GetCoordinateFromFile()
+        {
+            FileSystemWatcher watcher = new FileSystemWatcher();
+            watcher.Path = onlineFilePath;
+            watcher.Filter = "*.txt";
+            watcher.Changed += new FileSystemEventHandler(OnChanged);
+            watcher.EnableRaisingEvents = true;
+            Console.WriteLine("Waiting for opponent to shoot");
+            while (!hasReadFromFile)
+            {
+               
+            }
+            hasReadFromFile = false;
+            
+        }
+
+        private void OnChanged(object sender, FileSystemEventArgs e)
+        {
+            nextShot = File.ReadAllLines(onlineFilePath)[0];
+            hasReadFromFile = true;
         }
 
         private void SinkTheShip(Grid grid, Square thisSquare)
