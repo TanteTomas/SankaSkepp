@@ -73,7 +73,7 @@ namespace SänkaSkepp
 
         private static void PrintField(Grid grid, bool displayShips)
         {
-
+            Console.Clear();
             List<string> writeToScreen = new List<string>();
             string[] bgcolor = new string[grid.rows];
             char row = 'A';
