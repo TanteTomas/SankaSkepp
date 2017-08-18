@@ -106,7 +106,7 @@ namespace SänkaSkepp
 
         private static void PrintAll(List<string> writeToScreen , string[] bgcolor)
         {
-            Dictionary<char, ConsoleColor> bgcolors = bgcolorDictionary();
+            Dictionary<char, ConsoleColor> bgcolors = BGColorDictionary();
             int colorCounter;
             int row = 0;
 
@@ -118,7 +118,7 @@ namespace SänkaSkepp
                 foreach (char character in line)
                 {
                     
-                    SetBGColor(bgcolor[row/3][colorCounter/5]);
+                    Console.BackgroundColor = bgcolors[bgcolor[row/3][colorCounter/5]];
                     Console.Write(character);
                     colorCounter++;
                 }
@@ -129,42 +129,21 @@ namespace SänkaSkepp
             Console.ResetColor();
         }
 
-        private static Dictionary<char, ConsoleColor> bgcolorDictionary()
+        private static Dictionary<char, ConsoleColor> BGColorDictionary()
         {
             Dictionary<char, ConsoleColor> bgcolor = new Dictionary<char, ConsoleColor>
             {
                 { 'g',ConsoleColor.Green },
                 {'b',ConsoleColor.Blue },
-                {'r' , ConsoleColor.Red} 
+                {'r' , ConsoleColor.Red} ,
+                {'y' , ConsoleColor.Yellow },
+                {'d' , ConsoleColor.DarkBlue },
+                {'w' , ConsoleColor.White }
             };
+            return bgcolor;
         }
 
-        private static void SetBGColor(char character)
-        {
-            switch (character)
-            {
-                case 'g':
-                    Console.BackgroundColor = ConsoleColor.Green;
-                    break;
-                case 'b':
-                    Console.BackgroundColor = ConsoleColor.Blue;
-                    break;
-                case 'k':
-                    Console.BackgroundColor = ConsoleColor.Black;
-                    break;
-                case 'y':
-                    Console.BackgroundColor = ConsoleColor.Yellow;
-                    break;
-                case 'r':
-                    Console.BackgroundColor = ConsoleColor.Red;
-                    break;
-                case 'w':
-                    Console.BackgroundColor = ConsoleColor.White;
-                    break;
-                default:
-                    break;
-            }
-        }
+
 
         private static void WriteASquare(ref string[] bgcolor , Square square , bool displayShips , List<string> writeToScreen , int row)
         {
@@ -181,7 +160,7 @@ namespace SänkaSkepp
                 {
                     if (square.isSunk)
                     {
-                        bgcolor[row] += "w";
+                        bgcolor[row] += "d";
                         middlePart = "xxx";
                     }
                     else
