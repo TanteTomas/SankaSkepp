@@ -106,6 +106,7 @@ namespace SänkaSkepp
 
         private static void PrintAll(List<string> writeToScreen , string[] bgcolor)
         {
+            Dictionary<char, ConsoleColor> bgcolors = bgcolorDictionary();
             int colorCounter;
             int row = 0;
 
@@ -128,6 +129,16 @@ namespace SänkaSkepp
             Console.ResetColor();
         }
 
+        private static Dictionary<char, ConsoleColor> bgcolorDictionary()
+        {
+            Dictionary<char, ConsoleColor> bgcolor = new Dictionary<char, ConsoleColor>
+            {
+                { 'g',ConsoleColor.Green },
+                {'b',ConsoleColor.Blue },
+                {'r' , ConsoleColor.Red} 
+            };
+        }
+
         private static void SetBGColor(char character)
         {
             switch (character)
@@ -146,6 +157,9 @@ namespace SänkaSkepp
                     break;
                 case 'r':
                     Console.BackgroundColor = ConsoleColor.Red;
+                    break;
+                case 'w':
+                    Console.BackgroundColor = ConsoleColor.White;
                     break;
                 default:
                     break;
