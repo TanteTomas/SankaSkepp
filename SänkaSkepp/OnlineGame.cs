@@ -12,6 +12,7 @@ namespace SänkaSkepp
         public bool IsHost { get; set; }
         public string OnlineFilePath { get; private set; }
         public bool PlayOnline { get; set; }
+        public List<string> onlineFiles = new List<string> { "shot.txt", "shipSizes.txt" };
 
         private static bool IsHoster()
         {
@@ -28,25 +29,49 @@ namespace SänkaSkepp
 
         }
 
-        public string SetUpOnlineGame()
+        public void SetUpOnlineGame()
         {
             PlayOnline = AskIfPlayOnline();
-            string dropboxPath = SetUpDropBoxPath();
-            dropboxPath += "\\Battleships";
-            if (!File.Exists(dropboxPath))
-                File.Create(dropboxPath);
-            Console.WriteLine($"Please set directory {dropboxPath} as shared with your opponent, then press any key");
-            Console.ReadKey();
-
-            OnlineFilePath = $"{dropboxPath}\\shot.txt";
-            if (IsHost)
+            if (PlayOnline)
             {
-                if (File.Exists(OnlineFilePath))
-                    File.Delete(OnlineFilePath);
-                File.Create(OnlineFilePath);
-            }
+                
 
-            return OnlineFilePath;
+                string dropboxPath = SetUpDropBoxPath();
+                dropboxPath += "\\Battleships";
+
+                AppendOnlineFiles(dropboxPath);
+                DeleteFiles(onlineFiles);
+
+                if (!File.Exists(dropboxPath))
+                    File.Create(dropboxPath);
+                Console.WriteLine($"Please set directory {dropboxPath} as shared with your opponent, then press any key");
+                Console.ReadKey();
+
+                OnlineFilePath = $"{dropboxPath}\\shot.txt";
+                if (IsHost)
+                {
+                    if (File.Exists(OnlineFilePath))
+                        File.Delete(OnlineFilePath);
+                    File.Create(OnlineFilePath);
+                }
+            }
+        }
+
+        private void AppendOnlineFiles(string dropboxPath)
+        {
+            for (int i= 0; i < onlineFiles.Count; i++)
+            {
+                onlineFiles[i] = $"{dropboxPath}\\{onlineFiles[i]}";
+            }
+        }
+
+        private void DeleteFiles(List<string> onlineFiles)
+        {
+            foreach (string fileName in onlineFiles)
+            {
+                if (File.Exists(fileName))
+                    File.Delete(fileName);
+            }
         }
 
         private static string SetUpDropBoxPath()

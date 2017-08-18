@@ -13,8 +13,10 @@ namespace SänkaSkepp
         {
 
             Players players = new Players();
-            StartGame(players);
-            PlayGame(players);
+            OnlineGame onlineGame = new OnlineGame();
+            onlineGame.SetUpOnlineGame();
+            StartGame(players , onlineGame);
+            PlayGame(players , onlineGame);
             
 
 
@@ -29,10 +31,9 @@ namespace SänkaSkepp
             Console.ReadLine();
         }
 
-        private static void PlayGame(Players players)
+        private static void PlayGame(Players players , OnlineGame onlineGame)
         {
-            OnlineGame onlineGame = new OnlineGame();
-            onlineGame.SetUpOnlineGame();
+            
 
 
             while (true) //while(not all hit)
@@ -198,17 +199,30 @@ namespace SänkaSkepp
             
         }
 
-        private static void StartGame(Players players)
+        private static void StartGame(Players players , OnlineGame onlineGame)
         {
-            PlaceShips(players);
+            PlaceShips(players , onlineGame);
         }
 
-        private static void PlaceShips(Players players)
+        private static void PlaceShips(Players players , OnlineGame onlineGame)
         {
+            List<int> shipSizes;
             //PrintField(grid);
-            List<int> shipSizes = PickShipSizes();
+            if (onlineGame.IsHost)
+            {
+                shipSizes = PickShipSizes();
+            }
+            else
+            {
+                shipSizes = LoadShipSizes();
+            }
 
             LetsPlaceShips(shipSizes , players);
+        }
+
+        private static List<int> LoadShipSizes()
+        {
+            // todo: fortsätt här! ladda in skeppsstorlekar från fil. Se även till att host-spelaren sparar filen
         }
 
         private static void LetsPlaceShips(List<int> shipSizes , Players players)
