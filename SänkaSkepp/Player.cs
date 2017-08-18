@@ -61,6 +61,7 @@ namespace SänkaSkepp
                 else
                 {
                     Console.WriteLine("Miss!");
+                    grid.squares[input].isHit = true;
                 }
                 break;
             }

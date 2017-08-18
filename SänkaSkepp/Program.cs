@@ -33,13 +33,19 @@ namespace SänkaSkepp
 
             while (true) //while(not all hit)
             {
-                PrintField(players.player1.grid , false);
+                PrintField(players.player2.grid , false);
                 Console.WriteLine(players.player1.Name+"'s turn.");
                 players.player1.DropBomb(players.player2.grid);
+                PrintField(players.player2.grid, false);
+                Console.WriteLine("Press enter for next turn");
+                Console.ReadLine();
 
-                PrintField(players.player2.grid , false);
+                PrintField(players.player1.grid , false);
                 Console.WriteLine(players.player2.Name + "'s turn.");
                 players.player2.DropBomb(players.player1.grid);
+                PrintField(players.player1.grid, false);
+                Console.WriteLine("Press enter for next turn");
+                Console.ReadLine();
             }
         }
 
@@ -214,6 +220,7 @@ namespace SänkaSkepp
 
         private static void LetUserPlaceShips(List<int> shipSizes, Player player)
         {
+            Console.Clear();
             Console.WriteLine($"{player.Name} get ready to place ships. Hit enter when ready!");
             Console.ReadLine();
             
@@ -242,10 +249,12 @@ namespace SänkaSkepp
                             Console.WriteLine("The ship cannot be here!");
                         }
                     }
+                    
                 }
                 shipLength++;
             }
             PrintField(player.grid, true);
+            System.Threading.Thread.Sleep(1000);
         }
 
         private static bool PlaceThisShip(Player player , string position , int length)
