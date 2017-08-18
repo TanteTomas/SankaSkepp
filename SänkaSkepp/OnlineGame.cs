@@ -12,7 +12,9 @@ namespace SänkaSkepp
         public bool IsHost { get; set; }
         public string OnlineFilePath { get; private set; }
         public bool PlayOnline { get; set; }
-        public List<string> onlineFiles = new List<string> { "shot.txt", "shipSizes.txt" };
+        public Dictionary<string,string> onlineFiles = new Dictionary<string, string> {
+            { "shot" , "shot.txt" },
+            { "shipSizes" , "shipSizes.txt" } };
 
         private static bool IsHoster()
         {
@@ -59,18 +61,18 @@ namespace SänkaSkepp
 
         private void AppendOnlineFiles(string dropboxPath)
         {
-            for (int i= 0; i < onlineFiles.Count; i++)
+            foreach (string key in onlineFiles.Keys)
             {
-                onlineFiles[i] = $"{dropboxPath}\\{onlineFiles[i]}";
+                onlineFiles[key] = $"{dropboxPath}\\{onlineFiles[key]}";
             }
         }
 
-        private void DeleteFiles(List<string> onlineFiles)
+        private void DeleteFiles(Dictionary<string,string> onlineFiles)
         {
-            foreach (string fileName in onlineFiles)
+            foreach (var item in onlineFiles)
             {
-                if (File.Exists(fileName))
-                    File.Delete(fileName);
+                if (File.Exists(item.Value))
+                    File.Delete(item.Value);
             }
         }
 

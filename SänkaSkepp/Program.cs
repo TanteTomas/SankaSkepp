@@ -211,13 +211,30 @@ namespace SänkaSkepp
             if (onlineGame.IsHost)
             {
                 shipSizes = PickShipSizes();
+                SaveShipSizes(shipSizes , onlineGame);
             }
             else
             {
                 shipSizes = LoadShipSizes();
             }
 
-            LetsPlaceShips(shipSizes , players);
+            LetsPlaceShips(shipSizes , players); // todo: i denna metoden ska vi skapa en klass Ship inom Player, där skeppen lagras
+        }
+
+        private static void SaveShipSizes(List<int> shipSizes, OnlineGame onlineGame)
+        {
+            string[] shipSizesString = IntListToStringArray(shipSizes);
+            File.WriteAllLines(onlineGame.onlineFiles["shipSizes"] , shipSizesString);
+        }
+
+        private static string[] IntListToStringArray(List<int> shipSizes)
+        {
+            string[] outString = new string[shipSizes.Count];
+            for (int i = 0; i < shipSizes.Count; i++)
+            {
+                outString[i] = Convert.ToString(shipSizes[i]);
+            }
+            return outString;
         }
 
         private static List<int> LoadShipSizes()
