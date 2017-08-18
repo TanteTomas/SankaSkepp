@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,7 +31,14 @@ namespace SänkaSkepp
 
         private static void PlayGame(Players players)
         {
-
+            
+            bool playOnline = AskIfPlayOnline();
+            string onlineFilePath;
+            if (playOnline)
+            {
+                onlineFilePath = SetUpOnlineGame();
+            }
+            
             while (true) //while(not all hit)
             {
                 PrintField(players.player2.grid , false);
@@ -47,6 +55,49 @@ namespace SänkaSkepp
                 Console.WriteLine("Press enter for next turn");
                 Console.ReadLine();
             }
+        }
+
+        private static string SetUpOnlineGame()
+        {
+            string dropboxPath = SetUpDropBoxPath();
+            string onlineFilePath = $"{dropboxPath}\\shot.txt");
+            dropboxPath += "\\Battleships";
+            if (!File.Exists(dropboxPath))
+                File.Create(dropboxPath);
+            if (File.Exists(onlineFilePath))
+                File.Delete(onlineFilePath);
+            File.Create(onlineFilePath);
+
+            return onlineFilePath;
+        }
+
+        private static string SetUpDropBoxPath()
+        {
+            while (true)
+            {
+                Console.Write("Write path to your dropbox directory: ");
+                string dropboxPathRaw = Console.ReadLine();
+                if (File.Exists(dropboxPathRaw))
+                {
+                    return dropboxPathRaw;
+                }
+                else if (File.Exists($"{dropboxPathRaw}\\Dropbox"))
+                {
+                    return $"{dropboxPathRaw}\\Dropbox";
+                }
+                else
+                {
+                    Console.WriteLine("Invalid path!");
+                }
+            }
+        }
+
+        private static bool AskIfPlayOnline()
+        {
+            Console.Write("Do you want to play on different computers? ([y]/n)");
+            string input = Console.ReadLine().ToUpper();
+            return (input == "" || input == "Y")
+            
         }
 
         private static void PlayARound(Player player)
