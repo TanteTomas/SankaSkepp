@@ -105,15 +105,19 @@ namespace SänkaSkepp
 
             foreach (string line in writeToScreen)
             {
+                if (line == "")
+                    continue;
                 colorCounter = 0;
                 foreach (char character in line)
                 {
-                    SetBGColor(bgcolor[row][colorCounter/5]);
+                    
+                    SetBGColor(bgcolor[row/3][colorCounter/5]);
                     Console.Write(character);
                     colorCounter++;
                 }
                 Console.Write(Environment.NewLine);
-                
+                row++;
+
             }
             Console.ResetColor();
         }
@@ -144,9 +148,9 @@ namespace SänkaSkepp
 
         private static void WriteASquare(ref string[] bgcolor , Square square , bool displayShips , List<string> writeToScreen , int row)
         {
-            
-            int[] rows = new int[5] {row*5 , row*5+1 , row*5+2 , row*5+3 , row*5+4};
-            while (writeToScreen.Count < (row+1) * 5)
+               
+            int[] rows = new int[3] { row * 3, row * 3 + 1, row * 3 + 2 };
+            while (writeToScreen.Count < (row+1) * 3)
             {
                 writeToScreen.Add("");
             }
@@ -172,11 +176,11 @@ namespace SänkaSkepp
                     middlePart = "ooo";
                 }
             }
-            else if (square.isShip)
+            else if (square.isShip && displayShips)
             {
                 bgcolor[row] += "g";
-                middlePart = "+++";
-            }
+                middlePart = "+s+";
+            } else
             {
                 bgcolor[row] += "b";
                 middlePart = "   ";
@@ -241,6 +245,7 @@ namespace SänkaSkepp
                 }
                 shipLength++;
             }
+            PrintField(player.grid, true);
         }
 
         private static bool PlaceThisShip(Player player , string position , int length)
@@ -249,10 +254,10 @@ namespace SänkaSkepp
             List<string> shipCoords = GetShipCoords(position, length);
             foreach (string coord in shipCoords)
             {
-                if (player.grid.squares[coord].isShip)
-                {
+                if (!player.grid.squares.ContainsKey(coord))
                     return false;
-                }
+                if (player.grid.squares[coord].isShip)
+                    return false;
             }
 
             foreach (string coord in shipCoords)
