@@ -39,14 +39,35 @@ namespace SänkaSkepp
 
     public void DropBomb(Grid grid)
         {
-            Console.Write("Enter coords where to fire: ");
-            string input = Console.ReadLine();
+            while (true)
+            {
+                Console.Write("Enter coords where to fire: ");
+                string input = Console.ReadLine();
+                if (!grid.squares.ContainsKey(input))
+                {
+                    Console.WriteLine("This grid does not exist!");
+                    continue;
+                }
+                else if (grid.squares[input].isHit)
+                {
+                    Console.WriteLine("You have already shot here!");
+                    continue;
+                }
+                else if (grid.squares[input].isShip)
+                {
+                    Console.WriteLine("Hit!");
+                    grid.squares[input].isHit = true;
+                }
+                break;
+            }
+            /*
             Square bombDrop = new Square("Z0"); // behövs bara som Fallback
             foreach (var sq in grid.squares)
                 if (sq.Key == input)
                     bombDrop = sq.Value;
             Program.CheckHit(bombDrop);
             if (Program.CheckAllHit(grid)) Program.EndGame(this.Name);
+            */
         }
 
     }

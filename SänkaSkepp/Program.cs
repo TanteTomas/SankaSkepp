@@ -35,11 +35,11 @@ namespace SänkaSkepp
             {
                 PrintField(players.player1.grid , false);
                 Console.WriteLine(players.player1.Name+"'s turn.");
-                players.player1.DropBomb(players.player1.grid);
+                players.player1.DropBomb(players.player2.grid);
 
                 PrintField(players.player2.grid , false);
                 Console.WriteLine(players.player2.Name + "'s turn.");
-                players.player2.DropBomb(players.player2.grid);
+                players.player2.DropBomb(players.player1.grid);
             }
         }
 
