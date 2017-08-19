@@ -34,35 +34,42 @@ namespace SänkaSkepp
 
         private static void PlayGame(Players players , OnlineGame onlineGame)
         {
-            
+
             while (true) //while(not all hit)
             {
                 
-                PrintField(players.player2.grid , false);
-                Console.WriteLine(players.player1.Name+"'s turn.");
-                string message = players.player1.DropBomb(players.player2.grid , onlineGame , onlineGame.IsHost);
-                PrintField(players.player2.grid, false);
-                Console.WriteLine(message);
-                Console.WriteLine(IsGameOver(players.player2));
-                if (IsGameOver(players.player2))
-                {
-                    EndGame(players.player1);
-                    break;
-                }
-                Console.WriteLine("Press enter for next turn");
-                Console.ReadLine();
+                PlayOneTurn(players.player1 , players.player2, onlineGame);
 
-
-                PrintField(players.player1.grid , false);
-                Console.WriteLine(players.player2.Name + "'s turn.");
-                message = players.player2.DropBomb(players.player1.grid, onlineGame , !onlineGame.IsHost);
-                PrintField(players.player1.grid, false);
-                Console.WriteLine(message);
-                Console.WriteLine("Press enter for next turn");
-                Console.ReadLine();
+                PlayOneTurn(players.player2, players.player1, onlineGame);
+                
 
 
             }
+        }
+
+        private static void PlayOneTurn(Player player , Player opponent, OnlineGame onlineGame)
+        {
+            string message;
+            while (true)
+            {
+                PrintField(opponent.grid, false);
+                Console.WriteLine(player.Name + "'s turn.");
+                message = player.DropBomb(opponent.grid, onlineGame, onlineGame.IsHost);
+                PrintField(opponent.grid, false);
+                Console.WriteLine(message);
+                if (IsGameOver(opponent))
+                {
+                    EndGame(player);
+                    break;
+                }
+
+                if (message != "Hit!")
+                    break;
+                Console.WriteLine("Press enter for next turn");
+                Console.ReadLine();
+            }
+
+            
         }
 
         private static bool IsGameOver(Player player)

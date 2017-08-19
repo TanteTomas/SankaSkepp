@@ -87,20 +87,18 @@ namespace SänkaSkepp
                     return false;
             }
 
-            foreach (string coord in shipCoords)
-            {
-                CreateShip(coord, grid , shipCoords);
+            
+            CreateShip(grid , shipCoords);
              
-            }
             return true;
         }
 
-        private void CreateShip(string coord, Grid grid , List<string> shipCoords)
+        private void CreateShip(Grid grid , List<string> shipCoords)
         {
-            this.grid.squares[coord].isShip = true;
             this.ships.Add(new Ship(shipCoords));
             foreach (string partOfTheShip in shipCoords)
             {
+                this.grid.squares[partOfTheShip].isShip = true;
                 this.grid.squares[partOfTheShip].belongsToShip = this.ships[ships.Count - 1];
 
             }
