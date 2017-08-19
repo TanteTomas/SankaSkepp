@@ -16,6 +16,7 @@ namespace SänkaSkepp
         private string onlineFilePath;
         private bool hasReadFromFile = false;
         private string nextShot;
+        public Ship ships;
 
         public static int NumberOfPlayers = 0;
 
@@ -92,7 +93,9 @@ namespace SänkaSkepp
             foreach (string coord in shipCoords)
             {
                 player.grid.squares[coord].isShip = true;
-                player.grid.squares[coord].belongsToShip = shipCoords;
+                player.ships.coords.Add(shipCoords);
+                player.grid.squares[coord].belongsToShip = player.ships.coords[player.ships.coords.Count-1];
+                // todo: check that this works
 
             }
             return true;

@@ -8,5 +8,6 @@ namespace SänkaSkepp
 {
     class Ship
     {
+        public List<List<string>> coords;
     }
 }
