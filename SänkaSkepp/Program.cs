@@ -87,7 +87,7 @@ namespace SänkaSkepp
                 Console.WriteLine("You missed...");
         }
 
-        private static void PrintField(Grid grid, bool displayShips)
+        public static void PrintField(Grid grid, bool displayShips)
         {
             Console.Clear();
             List<string> writeToScreen = new List<string>();
@@ -298,103 +298,11 @@ namespace SänkaSkepp
 
         private static void LetsPlaceShips(List<int> shipSizes , Players players)
         {
-            LetUserPlaceShips(shipSizes , players.player1);
-            LetUserPlaceShips(shipSizes, players.player2);
+            players.player1.PlaceShips(shipSizes);// LetUserPlaceShips(shipSizes , players.player1);
+            players.player2.PlaceShips(shipSizes);
         }
 
-        private static void LetUserPlaceShips(List<int> shipSizes, Player player)
-        {
-            Console.Clear();
-            Console.WriteLine($"{player.Name} get ready to place ships. Hit enter when ready!");
-            Console.ReadLine();
-            
-            Console.WriteLine("Chose what grid the upper left corner of the ship should be in (on the form A1)");
-            int shipLength = 2;
-            foreach (int numberOfShipsOfThisSize in shipSizes)
-            {
-                
-                for (int i = 0; i < numberOfShipsOfThisSize; i++)
-                {
-                    PrintField(player.grid, true);
-                    while (true)
-                    {
-                        string position = GetInputFromUser.GetString($"Position of boat of length {shipLength}: ").ToUpper();
-                        if (!player.grid.squares.ContainsKey(position))
-                        {
-                            Console.WriteLine("This grid doesn't exist!");
-                            continue;
-                        }
-                        if (PlaceThisShip(player , position , shipLength))
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            Console.WriteLine("The ship cannot be here!");
-                        }
-                    }
-                    
-                }
-                shipLength++;
-            }
-            PrintField(player.grid, true);
-            System.Threading.Thread.Sleep(1000);
-        }
-
-        private static bool PlaceThisShip(Player player , string position , int length)
-        {
-            // todo: add in Square instance to what ship a square belongs to
-            List<string> shipCoords = GetShipCoords(position, length);
-            foreach (string coord in shipCoords)
-            {
-                if (!player.grid.squares.ContainsKey(coord))
-                    return false;
-                if (player.grid.squares[coord].isShip)
-                    return false;
-            }
-
-            foreach (string coord in shipCoords)
-            {
-                player.grid.squares[coord].isShip = true;
-                player.grid.squares[coord].belongsToShip = shipCoords;
-
-            }
-            return true;
-        }
-
-        private static List<string> GetShipCoords(string position , int length)
-        {
-            List<string> shipCoords = new List<string>();
-            char orientation = GetInputFromUser.GetChar("Orientation (h/d/v): ");
-            char row = position[0];
-            int column = Convert.ToInt32(Convert.ToString(position[1]));
-
-            for (int i = 0; i < length; i++)
-            {
-                shipCoords.Add(row + Convert.ToString(column));
-                NextPartOfTheShip(orientation, ref row, ref column);
-            }
-            return shipCoords;
-        }
-
-        private static void NextPartOfTheShip(char orientation, ref char row, ref int column)
-        {
-            switch (orientation)
-            {
-                case 'h':
-                    column++;
-                    break;
-                case 'v':
-                    row++;
-                    break;
-                case 'd':
-                    row++;
-                    column++;
-                    break;
-                default:
-                    break;
-            }
-        }
+        
 
         private static List<int> PickShipSizes()
         {

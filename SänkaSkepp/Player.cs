@@ -38,7 +38,99 @@ namespace SänkaSkepp
             return grid;
         }
 
+        public void PlaceShips(List<int> shipSizes)
+        {
+            Console.Clear();
+            Console.WriteLine($"{this.Name} get ready to place ships. Hit enter when ready!");
+            Console.ReadLine();
 
+            Console.WriteLine("Chose what grid the upper left corner of the ship should be in (on the form A1)");
+            int shipLength = 2;
+            foreach (int numberOfShipsOfThisSize in shipSizes)
+            {
+
+                for (int i = 0; i < numberOfShipsOfThisSize; i++)
+                {
+                    Program.PrintField(this.grid, true);
+                    while (true)
+                    {
+                        string position = GetInputFromUser.GetString($"Position of boat of length {shipLength}: ").ToUpper();
+                        if (!this.grid.squares.ContainsKey(position))
+                        {
+                            Console.WriteLine("This grid doesn't exist!");
+                            continue;
+                        }
+                        if (PlaceThisShip(this, position, shipLength))
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("The ship cannot be here!");
+                        }
+                    }
+
+                }
+                shipLength++;
+            }
+            Program.PrintField(this.grid, true);
+            System.Threading.Thread.Sleep(1000);
+        }
+
+        private bool PlaceThisShip(Player player, string position, int length)
+        {
+            // todo: add in Square instance to what ship a square belongs to
+            List<string> shipCoords = GetShipCoords(position, length);
+            foreach (string coord in shipCoords)
+            {
+                if (!player.grid.squares.ContainsKey(coord))
+                    return false;
+                if (player.grid.squares[coord].isShip)
+                    return false;
+            }
+
+            foreach (string coord in shipCoords)
+            {
+                player.grid.squares[coord].isShip = true;
+                player.grid.squares[coord].belongsToShip = shipCoords;
+
+            }
+            return true;
+        }
+
+        private List<string> GetShipCoords(string position, int length)
+        {
+            List<string> shipCoords = new List<string>();
+            char orientation = GetInputFromUser.GetChar("Orientation (h/d/v): ");
+            char row = position[0];
+            int column = Convert.ToInt32(Convert.ToString(position[1]));
+
+            for (int i = 0; i < length; i++)
+            {
+                shipCoords.Add(row + Convert.ToString(column));
+                NextPartOfTheShip(orientation, ref row, ref column);
+            }
+            return shipCoords;
+        }
+
+        private void NextPartOfTheShip(char orientation, ref char row, ref int column)
+        {
+            switch (orientation)
+            {
+                case 'h':
+                    column++;
+                    break;
+                case 'v':
+                    row++;
+                    break;
+                case 'd':
+                    row++;
+                    column++;
+                    break;
+                default:
+                    break;
+            }
+        }
 
 
         public string DropBomb(Grid grid, OnlineGame onlineGame, bool willEnterManually)
