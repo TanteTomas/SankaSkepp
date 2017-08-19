@@ -38,17 +38,20 @@ namespace SänkaSkepp
 
             while (true) //while(not all hit)
             {
+                
                 PrintField(players.player2.grid , false);
                 Console.WriteLine(players.player1.Name+"'s turn.");
-                players.player1.DropBomb(players.player2.grid , onlineGame , onlineGame.IsHost);
+                string message = players.player1.DropBomb(players.player2.grid , onlineGame , onlineGame.IsHost);
                 PrintField(players.player2.grid, false);
+                Console.WriteLine(message);
                 Console.WriteLine("Press enter for next turn");
                 Console.ReadLine();
 
                 PrintField(players.player1.grid , false);
                 Console.WriteLine(players.player2.Name + "'s turn.");
-                players.player2.DropBomb(players.player1.grid, onlineGame , !onlineGame.IsHost);
+                message = players.player2.DropBomb(players.player1.grid, onlineGame , !onlineGame.IsHost);
                 PrintField(players.player1.grid, false);
+                Console.WriteLine(message);
                 Console.WriteLine("Press enter for next turn");
                 Console.ReadLine();
             }
@@ -100,7 +103,7 @@ namespace SänkaSkepp
                     rowToIndex = row - 65;
                     column = 1;
                 }
-                while (Convert.ToInt32(Convert.ToString(square.Key[1])) != column)
+                while (Convert.ToInt32(Convert.ToString(square.Key.Substring(1))) != column)
                     column++;
 
                 WriteASquare(ref bgcolor , square.Value, displayShips, writeToScreen, rowToIndex);
@@ -113,12 +116,14 @@ namespace SänkaSkepp
 
         private static void PrintAll(List<string> writeToScreen , string[] bgcolor)
         {
+            ConsoleColor frameColor = ConsoleColor.DarkGray;
             Dictionary<char, ConsoleColor> bgcolors = BGColorDictionary();
             int colorCounter;
             int row = 0;
-
+            PrintColumns(writeToScreen , frameColor);
             foreach (string line in writeToScreen)
             {
+                PrintRowFrame(frameColor,row);
                 if (line == "")
                     continue;
                 colorCounter = 0;
@@ -129,9 +134,49 @@ namespace SänkaSkepp
                     Console.Write(character);
                     colorCounter++;
                 }
+                PrintRowFrame(frameColor, row);
                 Console.Write(Environment.NewLine);
                 row++;
 
+            }
+            PrintColumns(writeToScreen, frameColor);
+            Console.ResetColor();
+        }
+
+        private static void PrintRowFrame(ConsoleColor frameColor, int row)
+        {
+            Console.BackgroundColor = frameColor;
+            if (row % 3 == 0 || row%3==2) // First or last line line
+            {
+                Console.Write("     ");
+            }
+            else
+            {
+                char letter = (char)(row / 3 + 65); // ASCII 65=A
+                Console.Write($"  {Convert.ToString(letter)}  ");
+            }
+        }
+
+        private static void PrintColumns(List<string> writeToScreen , ConsoleColor frameColor)
+        {
+            Console.BackgroundColor = frameColor;
+            string empty = "     ";
+            for (int i = 0; i < 3; i++)
+            {
+                Console.Write(empty);
+                for (int j = 0; j < writeToScreen[0].Length / 5; j++)
+                {
+                    if ((i == 0) || (i == 2))
+                        Console.Write(empty);
+                    else
+                    {
+                        Console.Write($"  {j + 1}");
+                        int lastEmptyInThisString = 3 - (Convert.ToString(j + 1)).Length;
+                        for (int k = 0; k < lastEmptyInThisString; k++) { Console.Write(" "); }
+                        
+                    }
+                }
+                Console.WriteLine(empty);
             }
             Console.ResetColor();
         }
@@ -208,16 +253,22 @@ namespace SänkaSkepp
         {
             List<int> shipSizes;
             //PrintField(grid);
-            if (onlineGame.IsHost)
+            if (onlineGame.PlayOnline)
             {
-                shipSizes = PickShipSizes();
-                SaveShipSizes(shipSizes , onlineGame);
+                if (onlineGame.IsHost)
+                {
+                    shipSizes = PickShipSizes();
+                    SaveShipSizes(shipSizes, onlineGame);
+                }
+                else
+                {
+                    shipSizes = LoadShipSizes();
+                }
             }
             else
             {
-                shipSizes = LoadShipSizes();
+                shipSizes = PickShipSizes();
             }
-
             LetsPlaceShips(shipSizes , players); // todo: i denna metoden ska vi skapa en klass Ship inom Player, där skeppen lagras
         }
 
@@ -239,7 +290,10 @@ namespace SänkaSkepp
 
         private static List<int> LoadShipSizes()
         {
+            List<int> shipSizes;
             // todo: fortsätt här! ladda in skeppsstorlekar från fil. Se även till att host-spelaren sparar filen
+            throw new NotImplementedException();
+            return shipSizes;
         }
 
         private static void LetsPlaceShips(List<int> shipSizes , Players players)
@@ -264,7 +318,7 @@ namespace SänkaSkepp
                     PrintField(player.grid, true);
                     while (true)
                     {
-                        string position = GetInputFromUser.GetString($"Position of boat of length {shipLength}: ");
+                        string position = GetInputFromUser.GetString($"Position of boat of length {shipLength}: ").ToUpper();
                         if (!player.grid.squares.ContainsKey(position))
                         {
                             Console.WriteLine("This grid doesn't exist!");

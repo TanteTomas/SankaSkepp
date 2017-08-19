@@ -59,5 +59,47 @@ namespace SänkaSkepp
             return c;
 
         }
+
+        public static int[] GetTwoInts(string question, char separator , int[] defaultOutput)
+        {
+            string input = GetString(question);
+            if (input == "")
+            {
+                return defaultOutput;
+            }
+             return ReturnIntMethod(input , question , separator);
+        }
+
+        public static int[] GetTwoInts(string question, char separator)
+        {
+            string input = GetString(question);
+            
+            return ReturnIntMethod(input, question, separator);
+        }
+
+        private static int[] ReturnIntMethod(string input , string question , char separator)
+        {
+            while (true)
+            {
+                string[] splitInput = input.Split(separator);
+                if (splitInput.Length == 2)
+                {
+                    int[] output = new int[2];
+                    if (!(int.TryParse(splitInput[0], out output[0]) && int.TryParse(splitInput[1], out output[1])))
+                    {
+                        Console.WriteLine("Bad input!");
+                    }
+                    else
+                    {
+                        return output;
+                    }
+                }
+                else
+                {
+                    input = GetInputFromUser.GetString(question);
+                }
+            }
+        }
+
     }
 }

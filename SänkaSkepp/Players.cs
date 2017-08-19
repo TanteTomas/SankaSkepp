@@ -11,8 +11,12 @@ namespace SänkaSkepp
         public static Player AddPlayer()
         {
             Console.WriteLine("Enter Player Name: ");
-            return new Player(Console.ReadLine());
+            string playerName = Console.ReadLine();
+            return new Player(playerName , gridSize);
         }
+
+        static int[] gridSize = GetInputFromUser.GetTwoInts("Set grid size (as rows,columns) [8,8]", ',', new int[] { 8, 8 });
+
         public Player player1 = AddPlayer();
         public Player player2 = AddPlayer();
     }

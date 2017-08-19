@@ -19,43 +19,45 @@ namespace SänkaSkepp
 
         public static int NumberOfPlayers = 0;
 
-        public Player(string name)
+        public Player(string name , int[] gridSize)
         {
             Name = name;
             Score = 0;
             IsTurn = (NumberOfPlayers == 0);
             NumberOfPlayers++;
-            grid = SetGridSize();
+            grid = SetGridSize(gridSize);
             
         }
 
 
-    private static Grid SetGridSize()
-    {
-        // skapa en instans av klassen grid
-        Grid grid = new Grid(10, 10); // <-- färdig att använda
+        private static Grid SetGridSize(int[] gridSize)
+        {
+            // skapa en instans av klassen grid
+            Grid grid = new Grid(gridSize[0], gridSize[1]); // <-- färdig att använda
 
-        return grid;
-    }
-
-
+            return grid;
+        }
 
 
-    public void DropBomb(Grid grid , OnlineGame onlineGame , bool willEnterManually)
+
+
+        public string DropBomb(Grid grid, OnlineGame onlineGame, bool willEnterManually)
         {
             string input;
-            bool enterManually = (willEnterManually && onlineGame.PlayOnline);
+            bool enterManually = ((willEnterManually && onlineGame.PlayOnline) || !onlineGame.PlayOnline);
             while (true)
             {
                 if (enterManually)
                 {
-                    Console.Write("Enter coords where to fire: ");
-                    input = Console.ReadLine();
+                    input = GetInputFromUser.GetString("Enter coords where to fire: ").ToUpper();
+                    
                     if (onlineGame.PlayOnline)
                     {
                         WriteToFile(input);
                     }
+
                 }
+            
                 else
                 {
                     onlineFilePath = onlineGame.OnlineFilePath;
@@ -72,21 +74,14 @@ namespace SänkaSkepp
                     Console.WriteLine("You have already shot here!");
                     continue;
                 }
-                else if (grid.squares[input].isShip)
-                {
-                    Console.WriteLine("Hit!");
-                    grid.squares[input].isHit = true;
-                    if (IsTheShipSunk(grid , grid.squares[input]))
-                    {
-                        SinkTheShip(grid, grid.squares[input]);
-                    }
-                }
+
+                bool isHit = grid.squares[input].isShip;
+                if (isHit)
+                    return ReturnHit(grid, input);
                 else
-                {
-                    Console.WriteLine("Miss!");
-                    grid.squares[input].isHit = true;
-                }
-                break;
+                    return Miss(grid, input);
+                
+                
             }
             /*
             Square bombDrop = new Square("Z0"); // behövs bara som Fallback
@@ -98,6 +93,26 @@ namespace SänkaSkepp
             */
         }
 
+        private string Miss(Grid grid, string input)
+        {
+            grid.squares[input].isHit = true;
+            return "Miss!";
+        }
+
+        private string ReturnHit(Grid grid, string input)
+        {
+
+            grid.squares[input].isHit = true;
+            if (IsTheShipSunk(grid, grid.squares[input]))
+            {
+                SinkTheShip(grid, grid.squares[input]);
+                return "Good job, you sunk the ship!";
+            }
+            return "Hit!";
+            
+
+        }
+
         private void WriteToFile(string input)
         {
             File.WriteAllText(onlineFilePath, input);
@@ -105,9 +120,11 @@ namespace SänkaSkepp
 
         private void GetCoordinateFromFile()
         {
-            FileSystemWatcher watcher = new FileSystemWatcher();
-            watcher.Path = onlineFilePath;
-            watcher.Filter = "*.txt";
+            FileSystemWatcher watcher = new FileSystemWatcher()
+            {
+                Path = onlineFilePath,
+                Filter = "shipSizes.txt"
+            };
             watcher.Changed += new FileSystemEventHandler(OnChanged);
             watcher.EnableRaisingEvents = true;
             Console.WriteLine("Waiting for opponent to shoot");

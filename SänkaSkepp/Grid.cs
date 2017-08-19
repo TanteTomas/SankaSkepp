@@ -36,11 +36,11 @@ namespace SänkaSkepp
         }
 
        
-        private static List<string> SetupGridCoords() //returns coordinates of new grid
+        private List<string> SetupGridCoords() //returns coordinates of new grid
         {
             //Starting with rectangular grid
-            int rows = 4;
-            int columns = 4;
+            //int rows = 4;
+            //int columns = 4;
             char letter = 'A';
             List<string> coords = new List<string>();
             for (int i = 0; i < rows; i++)
