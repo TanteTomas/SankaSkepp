@@ -8,6 +8,12 @@ namespace SänkaSkepp
 {
     class Ship
     {
-        public List<List<string>> coords;
+        public List<string> coordinates;
+        public bool isSunk;
+
+        public Ship(List<string> _coordinates)
+        {
+            coordinates = _coordinates;
+        }
     }
 }

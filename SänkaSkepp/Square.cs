@@ -11,15 +11,14 @@ namespace SänkaSkepp
         public bool isHit;
         public bool isShip;
         public string coords;
-        public List<string> belongsToShip;
-        public bool isSunk;
+        public Ship belongsToShip;
+        
 
         public Square(string _coords)
         {
             coords = _coords;
             isHit = false;
             isShip = false;
-            isSunk = false;
         }
 
         public Square(string _coords, bool _isHit, bool _isShip)

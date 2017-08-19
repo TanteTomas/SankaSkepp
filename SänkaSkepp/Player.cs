@@ -16,7 +16,7 @@ namespace SänkaSkepp
         private string onlineFilePath;
         private bool hasReadFromFile = false;
         private string nextShot;
-        public Ship ships;
+        public List<Ship> ships = new List<Ship>();
 
         public static int NumberOfPlayers = 0;
 
@@ -55,20 +55,17 @@ namespace SänkaSkepp
                     Program.PrintField(this.grid, true);
                     while (true)
                     {
+                        
                         string position = GetInputFromUser.GetString($"Position of boat of length {shipLength}: ").ToUpper();
                         if (!this.grid.squares.ContainsKey(position))
                         {
                             Console.WriteLine("This grid doesn't exist!");
                             continue;
                         }
-                        if (PlaceThisShip(this, position, shipLength))
-                        {
+                        if (PlaceThisShip(position, shipLength))
                             break;
-                        }
                         else
-                        {
                             Console.WriteLine("The ship cannot be here!");
-                        }
                     }
 
                 }
@@ -78,27 +75,35 @@ namespace SänkaSkepp
             System.Threading.Thread.Sleep(1000);
         }
 
-        private bool PlaceThisShip(Player player, string position, int length)
+        private bool PlaceThisShip(string position, int length)
         {
             // todo: add in Square instance to what ship a square belongs to
             List<string> shipCoords = GetShipCoords(position, length);
             foreach (string coord in shipCoords)
             {
-                if (!player.grid.squares.ContainsKey(coord))
+                if (!this.grid.squares.ContainsKey(coord))
                     return false;
-                if (player.grid.squares[coord].isShip)
+                if (this.grid.squares[coord].isShip)
                     return false;
             }
 
             foreach (string coord in shipCoords)
             {
-                player.grid.squares[coord].isShip = true;
-                player.ships.coords.Add(shipCoords);
-                player.grid.squares[coord].belongsToShip = player.ships.coords[player.ships.coords.Count-1];
-                // todo: check that this works
-
+                CreateShip(coord, grid , shipCoords);
+             
             }
             return true;
+        }
+
+        private void CreateShip(string coord, Grid grid , List<string> shipCoords)
+        {
+            this.grid.squares[coord].isShip = true;
+            this.ships.Add(new Ship(shipCoords));
+            foreach (string partOfTheShip in shipCoords)
+            {
+                this.grid.squares[partOfTheShip].belongsToShip = this.ships[ships.Count - 1];
+
+            }
         }
 
         private List<string> GetShipCoords(string position, int length)
@@ -239,10 +244,8 @@ namespace SänkaSkepp
 
         private void SinkTheShip(Grid grid, Square thisSquare)
         {
-            foreach (string coord in thisSquare.belongsToShip)
-            {
-                grid.squares[coord].isSunk = true;
-            }
+            thisSquare.belongsToShip.isSunk = true;
+            
 
             // todo: play sinking sound!
             
@@ -251,7 +254,7 @@ namespace SänkaSkepp
         private bool IsTheShipSunk(Grid grid, Square thisSquare)
         {
             
-            foreach (string coord in thisSquare.belongsToShip)
+            foreach (string coord in thisSquare.belongsToShip.coordinates)
             {
                 if (!grid.squares[coord].isHit)
                 {

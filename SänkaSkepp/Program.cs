@@ -25,17 +25,16 @@ namespace SänkaSkepp
 
         }
 
-        public static void EndGame(string winner)
+        public static void EndGame(Player player)
         {
-            Console.WriteLine(" * * * Winner: "+winner.ToUpper()+" * * *");
+            Console.WriteLine(" * * * Winner: "+player.Name.ToUpper()+" * * *");
             Console.ReadLine();
+
         }
 
         private static void PlayGame(Players players , OnlineGame onlineGame)
         {
             
-
-
             while (true) //while(not all hit)
             {
                 
@@ -44,8 +43,15 @@ namespace SänkaSkepp
                 string message = players.player1.DropBomb(players.player2.grid , onlineGame , onlineGame.IsHost);
                 PrintField(players.player2.grid, false);
                 Console.WriteLine(message);
+                Console.WriteLine(IsGameOver(players.player2));
+                if (IsGameOver(players.player2))
+                {
+                    EndGame(players.player1);
+                    break;
+                }
                 Console.WriteLine("Press enter for next turn");
                 Console.ReadLine();
+
 
                 PrintField(players.player1.grid , false);
                 Console.WriteLine(players.player2.Name + "'s turn.");
@@ -54,10 +60,22 @@ namespace SänkaSkepp
                 Console.WriteLine(message);
                 Console.WriteLine("Press enter for next turn");
                 Console.ReadLine();
+
+
             }
         }
 
-
+        private static bool IsGameOver(Player player)
+        {
+            foreach (Ship ship in player.ships)
+            {
+                if (!ship.isSunk)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
 
         private static void PlayARound(Player player)
         {
@@ -210,7 +228,7 @@ namespace SänkaSkepp
             {
                 if (square.isShip)
                 {
-                    if (square.isSunk)
+                    if (square.belongsToShip.isSunk)
                     {
                         bgcolor[row] += "d";
                         middlePart = "xxx";
