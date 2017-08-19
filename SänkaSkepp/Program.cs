@@ -64,9 +64,12 @@ namespace SänkaSkepp
                 }
 
                 if (message != "Hit!")
+                {
+                    Console.WriteLine("Press enter for next turn");
+                    Console.ReadLine();
                     break;
-                Console.WriteLine("Press enter for next turn");
-                Console.ReadLine();
+                }
+                Console.WriteLine("You hit a ship! Shoot again.");
             }
 
             
