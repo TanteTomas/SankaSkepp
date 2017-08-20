@@ -39,11 +39,17 @@ namespace SänkaSkepp
             {
                 
                 PlayOneTurn(players.player1 , players.player2, onlineGame);
-
+                if (IsGameOver(players.player2))
+                {
+                    EndGame(players.player1);
+                    break;
+                }
                 PlayOneTurn(players.player2, players.player1, onlineGame);
-                
-
-
+                if (IsGameOver(players.player1))
+                {
+                    EndGame(players.player2);
+                    break;
+                }
             }
         }
 
@@ -57,11 +63,7 @@ namespace SänkaSkepp
                 message = player.DropBomb(opponent.grid, onlineGame, onlineGame.IsHost);
                 PrintField(opponent.grid, false);
                 Console.WriteLine(message);
-                if (IsGameOver(opponent))
-                {
-                    EndGame(player);
-                    break;
-                }
+                
 
                 if (message != "Hit!")
                 {
@@ -139,8 +141,6 @@ namespace SänkaSkepp
 
             PrintAll(writeToScreen , bgcolor);
         }
-
-        
 
         private static void PrintAll(List<string> writeToScreen , string[] bgcolor)
         {
