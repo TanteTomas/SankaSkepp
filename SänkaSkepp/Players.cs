@@ -12,11 +12,14 @@ namespace SänkaSkepp
         {
             Console.WriteLine("Enter Player Name: ");
             string playerName = Console.ReadLine();
-            return new Player(playerName , gridSize);
+            return new Player(playerName, gridSize);
         }
+       
+	
 
-        static int[] gridSize = GetInputFromUser.GetTwoInts("Set grid size (as rows,columns) [8,8]", ',', new int[] { 8, 8 }); //Hör denna till denna klassen?
-
+	
+        static int[] gridSize = GetInputFromUser.GetTwoInts("Set grid size (as rows,columns) [8,8]", ',', 25 ,new int[] { 8, 8 }); //Hör denna till denna klassen?
+    
         public Player player1 = AddPlayer();
         public Player player2 = AddPlayer();
     }

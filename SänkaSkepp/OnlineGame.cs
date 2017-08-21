@@ -80,7 +80,7 @@ namespace SänkaSkepp
         {
             while (true)
             {
-                Console.Write("Write path to your dropbox directory: ");
+                Console.Write("Write full path to your dropbox directory on this computer: ");
                 string dropboxPathRaw = Console.ReadLine();
                 if (File.Exists(dropboxPathRaw))
                 {

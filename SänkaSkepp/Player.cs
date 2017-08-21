@@ -40,7 +40,7 @@ namespace SänkaSkepp
         private static Grid SetGridSize(int[] gridSize)
         {
             // skapa en instans av klassen grid
-            Grid grid = new Grid(gridSize[0], gridSize[1]); // <-- färdig att använda
+            Grid grid = new Grid(gridSize[0], gridSize[1]); 
 
             return grid;
         }
@@ -113,7 +113,7 @@ namespace SänkaSkepp
         private List<string> GetShipCoords(string position, int length)
         {
             List<string> shipCoords = new List<string>();
-            char orientation = GetInputFromUser.GetChar("Orientation (h/d/v): ");
+            char orientation = GetInputFromUser.GetChar("Orientation ([h]orisontal/diagonal [d]own right/diagonal [u]p right/[v]ertical): ");
             char row = position[0];
             int column = Convert.ToInt32(Convert.ToString(position[1]));
 
@@ -137,6 +137,10 @@ namespace SänkaSkepp
                     break;
                 case 'd':
                     row++;
+                    column++;
+                    break;
+                case 'u':
+                    row--;
                     column++;
                     break;
                 default:

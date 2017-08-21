@@ -42,7 +42,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bomb.cs" />
     <Compile Include="GetInputFromUser.cs" />
     <Compile Include="Grid.cs" />
     <Compile Include="Message.cs" />

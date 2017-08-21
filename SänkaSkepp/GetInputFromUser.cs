@@ -32,7 +32,7 @@ namespace SänkaSkepp
 
         public static string GetString(string question)
         {
-            return GetStringMethod(question, 0, 1000000000); //Behövs så långa strängar?
+            return GetStringMethod(question, 0, 1000000000); //Behövs så långa strängar? Det är en övre gräns! c.f. överlagring
         }
 
         public static string GetStringMethod(string question, int minChars, int maxChars)
@@ -60,7 +60,7 @@ namespace SänkaSkepp
 
         }
 
-        public static int[] GetTwoInts(string question, char separator, int[] defaultOutput)
+        public static int[] GetTwoInts(string question, char separator, int max , int[] defaultOutput)
         {
             while (true)
             {
@@ -70,8 +70,13 @@ namespace SänkaSkepp
                     return defaultOutput;
                 }
                 int[] output = ReturnIntMethod(input, question, separator);
-                if (output[0] != 0)
+                if (((output[0] > 0) && (output[1] > 0)) && ((output[0] <= max) && (output[1] <= max) ))
+                    
                     return output;
+                else if ((output[0] > max) || (output[1] > max))
+                {
+                    Console.WriteLine($"The grid is too large! Maximum size is {max}x{max}");
+                }
             }
         }
 
