@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -205,19 +206,25 @@ namespace SänkaSkepp
         private Message Miss(Grid grid, string input)
         {
             grid.squares[input].isHit = true;
-            return new Message("Miss!" , false);
+            SoundPlayer player = new SoundPlayer("C:\\Users\\Andreas.Johansson\\Documents\\Visual Studio 2017\\Projects\\SänkaSkepp\\splash.wav");
+            
+            return new Message("Miss!" , false, player);
         }
 
         private Message ReturnHit(Grid grid, string input)
         {
-            Message message = new Message("Hit!", true);
+            SoundPlayer player = new SoundPlayer("C:\\Users\\Andreas.Johansson\\Documents\\Visual Studio 2017\\Projects\\SänkaSkepp\\hit.wav");
+            
+            //Message message = new Message("Hit!", true , player);
             grid.squares[input].isHit = true;
             if (IsTheShipSunk(grid, grid.squares[input]))
             {
+                SoundPlayer player2 = new SoundPlayer("C:\\Users\\Andreas.Johansson\\Documents\\Visual Studio 2017\\Projects\\SänkaSkepp\\ship-sinking.wav");
+                
                 SinkTheShip(grid, grid.squares[input]);
-                return new Message("Good job, you sunk the ship!", true);
+                return new Message("Good job, you sunk the ship!", true , player2);
             }
-            return new Message("Hit!" , true);
+            return new Message("Hit!" , true , player);
             
 
         }

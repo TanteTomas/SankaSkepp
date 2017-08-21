@@ -63,6 +63,7 @@ namespace SänkaSkepp
                 Console.WriteLine(player.Name + "'s turn.");
                 Message message = player.DropBomb(opponent.grid, onlineGame, onlineGame.IsHost);
                 PrintField(opponent.grid, false);
+                message.player.PlaySync();
                 Console.WriteLine(message.text);
                 
 
