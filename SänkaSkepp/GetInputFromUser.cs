@@ -25,7 +25,7 @@ namespace SänkaSkepp
 
         }
 
-        public static string GetString(string question, int minChars , int maxChars)
+        public static string GetString(string question, int minChars, int maxChars)
         {
             return GetStringMethod(question, minChars, maxChars);
         }
@@ -35,13 +35,13 @@ namespace SänkaSkepp
             return GetStringMethod(question, 0, 1000000000);
         }
 
-        public static string GetStringMethod(string question , int minChars , int maxChars)
+        public static string GetStringMethod(string question, int minChars, int maxChars)
         {
             while (true)
             {
                 Console.Write(question);
                 string input = Console.ReadLine();
-                if ((input.Length>=minChars) && (input.Length <= maxChars))
+                if ((input.Length >= minChars) && (input.Length <= maxChars))
                 {
                     return input;
                 }
@@ -60,45 +60,51 @@ namespace SänkaSkepp
 
         }
 
-        public static int[] GetTwoInts(string question, char separator , int[] defaultOutput)
+        public static int[] GetTwoInts(string question, char separator, int[] defaultOutput)
         {
-            string input = GetString(question);
-            if (input == "")
+            while (true)
             {
-                return defaultOutput;
+                string input = GetString(question);
+                if (input == "")
+                {
+                    return defaultOutput;
+                }
+                int[] output = ReturnIntMethod(input, question, separator);
+                if (output[0] != 0)
+                    return output;
             }
-             return ReturnIntMethod(input , question , separator);
         }
+
 
         public static int[] GetTwoInts(string question, char separator)
         {
             string input = GetString(question);
-            
+
             return ReturnIntMethod(input, question, separator);
         }
 
-        private static int[] ReturnIntMethod(string input , string question , char separator)
+        private static int[] ReturnIntMethod(string input, string question, char separator)
         {
-            while (true)
+
+            string[] splitInput = input.Split(separator);
+            if (splitInput.Length == 2)
             {
-                string[] splitInput = input.Split(separator);
-                if (splitInput.Length == 2)
+                int[] output = new int[2];
+                if (!(int.TryParse(splitInput[0], out output[0]) && int.TryParse(splitInput[1], out output[1])))
                 {
-                    int[] output = new int[2];
-                    if (!(int.TryParse(splitInput[0], out output[0]) && int.TryParse(splitInput[1], out output[1])))
-                    {
-                        Console.WriteLine("Bad input!");
-                    }
-                    else
-                    {
-                        return output;
-                    }
+                    Console.WriteLine("Bad input!");
+                    return new int[] { 0, 0 };
                 }
                 else
                 {
-                    input = GetInputFromUser.GetString(question);
+                    return output;
                 }
             }
+            else
+            {
+                return new int[] { 0, 0 };
+            }
+
         }
 
     }
