@@ -298,7 +298,7 @@ namespace SänkaSkepp
             {
                 shipSizes = PickShipSizes();
             }
-            LetsPlaceShips(shipSizes , players); // todo: i denna metoden ska vi skapa en klass Ship inom Player, där skeppen lagras
+            LetsPlaceShips(shipSizes , players , onlineGame); // todo: i denna metoden ska vi skapa en klass Ship inom Player, där skeppen lagras
         }
 
         private static void SaveShipSizes(List<int> shipSizes, OnlineGame onlineGame)
@@ -328,7 +328,7 @@ namespace SänkaSkepp
         private static void LetsPlaceShips(List<int> shipSizes , Players players , OnlineGame onlineGame)
         {
             players.player1.PlaceShips(shipSizes,onlineGame);// LetUserPlaceShips(shipSizes , players.player1);
-            players.player2.PlaceShips(shipSizes);
+            players.player2.PlaceShips(shipSizes,onlineGame);
         }
 
         
