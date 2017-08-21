@@ -139,7 +139,7 @@ namespace SänkaSkepp
         }
 
 
-        public string DropBomb(Grid grid, OnlineGame onlineGame, bool willEnterManually)
+        public Message DropBomb(Grid grid, OnlineGame onlineGame, bool willEnterManually)
         {
             string input;
             bool enterManually = ((willEnterManually && onlineGame.PlayOnline) || !onlineGame.PlayOnline);
@@ -175,6 +175,7 @@ namespace SänkaSkepp
 
                 bool isHit = grid.squares[input].isShip;
                 if (isHit)
+                    
                     return ReturnHit(grid, input);
                 else
                     return Miss(grid, input);
@@ -191,22 +192,22 @@ namespace SänkaSkepp
             */
         }
 
-        private string Miss(Grid grid, string input)
+        private Message Miss(Grid grid, string input)
         {
             grid.squares[input].isHit = true;
-            return "Miss!";
+            return new Message("Miss!" , false);
         }
 
-        private string ReturnHit(Grid grid, string input)
+        private Message ReturnHit(Grid grid, string input)
         {
-
+            Message message = new Message("Hit!", true);
             grid.squares[input].isHit = true;
             if (IsTheShipSunk(grid, grid.squares[input]))
             {
                 SinkTheShip(grid, grid.squares[input]);
-                return "Good job, you sunk the ship!";
+                return new Message("Good job, you sunk the ship!", true);
             }
-            return "Hit!";
+            return new Message("Hit!" , true);
             
 
         }

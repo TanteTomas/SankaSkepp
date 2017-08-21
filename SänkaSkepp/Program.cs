@@ -55,23 +55,24 @@ namespace SänkaSkepp
 
         private static void PlayOneTurn(Player player , Player opponent, OnlineGame onlineGame)
         {
-            string message;
+            
             while (true)
             {
                 PrintField(opponent.grid, false);
                 Console.WriteLine(player.Name + "'s turn.");
-                message = player.DropBomb(opponent.grid, onlineGame, onlineGame.IsHost);
+                Message message = player.DropBomb(opponent.grid, onlineGame, onlineGame.IsHost);
                 PrintField(opponent.grid, false);
-                Console.WriteLine(message);
+                Console.WriteLine(message.text);
                 
 
-                if (message != "Hit!")
+                if (!message.shootAgain)
                 {
                     Console.WriteLine("Press enter for next turn");
                     Console.ReadLine();
                     break;
                 }
-                Console.WriteLine("You hit a ship! Shoot again.");
+                Console.WriteLine("You hit a ship! Shoot again. Press enter");
+                Console.ReadLine();
             }
 
             
