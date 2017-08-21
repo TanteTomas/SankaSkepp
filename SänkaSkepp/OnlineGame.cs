@@ -36,7 +36,7 @@ namespace SänkaSkepp
             PlayOnline = AskIfPlayOnline();
             if (PlayOnline)
             {
-                
+                IsHost = IsHoster();
 
                 string dropboxPath = SetUpDropBoxPath();
                 dropboxPath += "\\Battleships";
@@ -44,8 +44,8 @@ namespace SänkaSkepp
                 AppendOnlineFiles(dropboxPath);
                 DeleteFiles(onlineFiles);
 
-                if (!File.Exists(dropboxPath))
-                    File.Create(dropboxPath);
+                if (!Directory.Exists(dropboxPath))
+                    Directory.CreateDirectory(dropboxPath);
                 Console.WriteLine($"Please set directory {dropboxPath} as shared with your opponent, then press any key");
                 Console.ReadKey();
 
@@ -61,10 +61,12 @@ namespace SänkaSkepp
 
         private void AppendOnlineFiles(string dropboxPath)
         {
-            foreach (string key in onlineFiles.Keys)
+            List<string> keys = new List<string>(onlineFiles.Keys);
+            foreach (string key in keys)
             {
                 onlineFiles[key] = $"{dropboxPath}\\{onlineFiles[key]}";
             }
+
         }
 
         private void DeleteFiles(Dictionary<string,string> onlineFiles)
@@ -82,11 +84,12 @@ namespace SänkaSkepp
             {
                 Console.Write("Write path to your dropbox directory: ");
                 string dropboxPathRaw = Console.ReadLine();
-                if (File.Exists(dropboxPathRaw))
+                
+                if (Directory.Exists(dropboxPathRaw))
                 {
                     return dropboxPathRaw;
                 }
-                else if (File.Exists($"{dropboxPathRaw}\\Dropbox"))
+                else if (Directory.Exists($"{dropboxPathRaw}\\Dropbox"))
                 {
                     return $"{dropboxPathRaw}\\Dropbox";
                 }
