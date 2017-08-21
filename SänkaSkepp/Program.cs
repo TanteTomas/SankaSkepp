@@ -27,6 +27,7 @@ namespace SänkaSkepp
 
         public static void EndGame(Player player)
         {
+            // todo: fixa lite flashigare output
             Console.WriteLine(" * * * Winner: "+player.Name.ToUpper()+" * * *");
             Console.ReadLine();
 
