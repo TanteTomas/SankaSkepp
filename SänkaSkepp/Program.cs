@@ -72,6 +72,15 @@ namespace SänkaSkepp
                     Console.ReadLine();
                     break;
                 }
+                else
+                {
+                    if (IsGameOver(opponent))
+                    {
+                        EndGame(player);
+                        Environment.Exit(0);
+                    }
+                    
+                }
                 Console.WriteLine("You hit a ship! Shoot again. Press enter");
                 Console.ReadLine();
             }
