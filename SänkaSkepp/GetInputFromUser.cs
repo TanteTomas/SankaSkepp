@@ -32,7 +32,7 @@ namespace SänkaSkepp
 
         public static string GetString(string question)
         {
-            return GetStringMethod(question, 0, 1000000000);
+            return GetStringMethod(question, 0, 1000000000); //Behövs så långa strängar?
         }
 
         public static string GetStringMethod(string question, int minChars, int maxChars)
@@ -76,7 +76,7 @@ namespace SänkaSkepp
         }
 
 
-        public static int[] GetTwoInts(string question, char separator)
+        public static int[] GetTwoInts(string question, char separator) //Onödigt att bryta ut denna från ReturnIntMethod
         {
             string input = GetString(question);
 

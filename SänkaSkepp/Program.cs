@@ -13,7 +13,7 @@ namespace SänkaSkepp
         {
 
             Players players = new Players();
-            OnlineGame onlineGame = new OnlineGame();
+            OnlineGame onlineGame = new OnlineGame(); //Otydligt i spelet hur en Dropbox Path ska skrivas (ge exempel!)
             onlineGame.SetUpOnlineGame();
             StartGame(players , onlineGame);
             PlayGame(players , onlineGame);

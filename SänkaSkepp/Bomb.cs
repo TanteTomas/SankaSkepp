@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SänkaSkepp
 {
-    class Bomb
+    class Bomb//Tom?
     {
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SänkaSkepp
 {
-    class Grid
+    class Grid //Lägg till min och maxstorlek på Grid - annars kraschar spelet
     {
 
         public Dictionary<string, Square> squares = new Dictionary<string, Square>();
@@ -49,7 +49,7 @@ namespace SänkaSkepp
                 {
                     coords.Add($"{letter}{j+1}");
                 }
-                letter++;
+                letter++; //Smart användning av bit-nummer! Finns det någon risk med detta?
             }
             return coords;
         }

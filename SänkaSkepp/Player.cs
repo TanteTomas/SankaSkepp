@@ -5,8 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SänkaSkepp
+namespace SänkaSkepp 
 {
+    /*MÅnga korta och koncisa metoder, dock blir koden lite otydlig i och med att ni har så många olika metoder som är lite spretigt sorterade.
+     * Många metoder är dessutom ganska snarlika, både till namn och syfte.
+     * Bra felhantering, snygga lösningar för input-hantering etc!
+     Bra förbättring av själva spelet! Nu är det lätt att förstå och följa hur spelet går till.
+     Ev förbättring är att förtydliga kring antalet båtar som man anger i början, samt generellt "pimpa" ytterligare
+     Ambitiöst och avancerat, inte så konstigt att det inte är helt buggfritt ännu!*/
     class Player
     {
         public string Name { get; private set; }
@@ -16,7 +22,7 @@ namespace SänkaSkepp
         private string onlineFilePath;
         private bool hasReadFromFile = false;
         private string nextShot;
-        public List<Ship> ships = new List<Ship>();
+        public List<Ship> ships = new List<Ship>(); //Sätt att "negativa" skepp inte är tillåtna (ex -1)
 
         public static int NumberOfPlayers = 0;
 
