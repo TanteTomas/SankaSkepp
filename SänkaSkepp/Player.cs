@@ -39,7 +39,7 @@ namespace SänkaSkepp
             return grid;
         }
 
-        public void PlaceShips(List<int> shipSizes)
+        public void PlaceShips(List<int> shipSizes , OnlineGame onlineGame)
         {
             Console.Clear();
             Console.WriteLine($"{this.Name} get ready to place ships. Hit enter when ready!");

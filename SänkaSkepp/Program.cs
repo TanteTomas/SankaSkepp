@@ -325,9 +325,9 @@ namespace SänkaSkepp
             return shipSizes;
         }
 
-        private static void LetsPlaceShips(List<int> shipSizes , Players players)
+        private static void LetsPlaceShips(List<int> shipSizes , Players players , OnlineGame onlineGame)
         {
-            players.player1.PlaceShips(shipSizes);// LetUserPlaceShips(shipSizes , players.player1);
+            players.player1.PlaceShips(shipSizes,onlineGame);// LetUserPlaceShips(shipSizes , players.player1);
             players.player2.PlaceShips(shipSizes);
         }
 
